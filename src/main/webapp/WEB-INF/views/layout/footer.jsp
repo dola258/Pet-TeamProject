@@ -6,7 +6,6 @@
 		<p>주소: 부산시 부산구 부산동 1111-1</p>
 		<p>이메일 문의: bowbow@meow.meow</p>
 	</div>
-
 </body>
 </html>
 ​
