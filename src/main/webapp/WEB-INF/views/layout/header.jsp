@@ -21,7 +21,7 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 </head>
-<body>
+<body style="min-height: 100%">
 
 	<nav class="navbar navbar-expand-sm bg-success navbar-dark ">
 		<div class="container-fluid">
