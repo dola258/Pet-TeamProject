@@ -2,26 +2,49 @@
 <%@ include file="../layout/header.jsp"%>
 	<style>
 input[type="radio"]{width : 18px;}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 75vh;
+}
 
 </style>
 
-<div class="container">
-	<h1>회원정보</h1>
-  <p></p>
+
+
+<div style="text-align:center">
+<h2>회원정보</h2>
+</div>
+<div class="container" >
   <form action="" method="">
     <div class="form-group">
       <label for="uname">아이디</label>
-      <input type="text" class="form-control" id="uname" placeholder="댕냥이"  style="width:600px;" name="uname" required >
+      <input type="text" class="form-control" id="uname"  style="width:400px;" name="uname" required >
     </div>
      <br>
     <div class="form-group">
       <label for="pwd">비밀번호</label>
-      <input type="password" class="form-control" id="pwd" placeholder="비밀번호"  style="width:600px;" name="pswd" required>
+      <input type="password" class="form-control" id="pwd"  style="width:400px;" name="pswd" required>
      </div>
       <br>
+    <div class="form-group">
+      <label for="pwd">이름</label>
+      <input type="text" class="form-control" id="name" style="width:400px;" name="name" required>
+     </div>
+      <br>
+       <div class="form-group">
+        <label for="pwd">전화번호</label>
+        <br>
+       <form name="phonnumber" action="" method="post">
+        <input type='tel' name='phone1' / style="width:100px;">-
+        <input type='tel' name='phone2' /style="width:100px;">-
+        <input type='tel' name='phone3' /style="width:100px;">
+        </div>
+        <br>
  <div class="form-group">
       <label for="pwd">이메일</label>
-      <input type="email" class="form-control" id="email"  mexlength="30" placeholder="댄냥이@naver.com"  style="width:600px;" name="email" required>
+      <input type="email" class="form-control" id="email"  mexlength="30"  style="width:400px;" name="email" required>
      </div>
     <br>
      <label for="pwd">성별</label><br>
@@ -43,7 +66,7 @@ input[type="radio"]{width : 18px;}
     </div>
     </br>
     <p></p>
-    <button type="submit" class="btn btn-primary">개인정보 수정하기</button>
+    <button type="submit" class="btn btn-primary">회원정보 수정하기</button>
   </form>
 </div>
 </div>
