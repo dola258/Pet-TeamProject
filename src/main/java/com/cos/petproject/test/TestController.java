@@ -6,6 +6,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class TestController {
 	
+	// 관리자 관련
+	@GetMapping("/test/admin/home")
+	public String home() {
+		return "admin/home";
+	}
+	@GetMapping("/test/admin/loginForm")
+	public String adminlogin() {
+		return "admin/loginForm";
+	}
+	@GetMapping("/test/admin/joinForm")
+	public String adminJoinForm() {
+		return "admin/joinForm";
+	}
+
+
+
 	// 유저 관련-------------------
 	@GetMapping("/test/user/loginForm")
 	public String loginForm() {

@@ -12,7 +12,6 @@ input[type="radio"]{width : 18px;}
 </style>
 
 
-
 <div style="text-align:center">
 <h2>회원정보</h2>
 </div>
