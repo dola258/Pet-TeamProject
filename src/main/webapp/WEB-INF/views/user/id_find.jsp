@@ -23,7 +23,7 @@
 		</div>
 		<div class="mb-3">
 			<label for="email">이메일:</label> <input type="email"
-				class="form-control" id="password" placeholder="등록된 이메일을 입력해주세요"
+				class="form-control" id="email" placeholder="등록된 이메일을 입력해주세요"
 				required="required">
 		</div>
 		<p style="text-align: center;">등록된 이메일 주소로 아이디가 전송됩니다.</p>
