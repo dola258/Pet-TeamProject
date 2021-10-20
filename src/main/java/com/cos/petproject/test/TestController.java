@@ -39,7 +39,15 @@ public class TestController {
 	public String userUpdateForm() {
 		return "user/updateForm";
 	}
-
+	@GetMapping("test/user/idfind")
+	public String idFind() {
+		return "user/id_find";
+	}
+	@GetMapping("test/user/pwfind")
+	public String pwFind() {
+		return "user/pw_find";
+	}
+	
 	
 	//고양이/QnA---------------------------
 	@GetMapping("/test/cat/qna/detail")
