@@ -35,7 +35,7 @@
 				</div>
 				<p style="text-align: center;">등록된 이메일 주소로 아이디가 전송됩니다.</p>
 				<div class="d-flex justify-content-center">
-					<button type="submit" class="btn btn-primary">&emsp;찾기&emsp;</button>
+					<button type="submit" class="btn btn-success">&emsp;찾기&emsp;</button>
 					<button type="button" class="btn btn-secondary" style="margin-left: 10px" onclick="location.href='#'">&emsp;취소&emsp;</button>
 				</div>
 				</form>
