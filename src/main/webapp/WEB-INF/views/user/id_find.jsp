@@ -11,6 +11,7 @@
 				<button type="button" class="btn btn-outline-warning" onclick="location.href='#'">비밀번호 찾기</button>
 				<div class="border border-success"></div>
 			</div>
+			<br>
 			<div>
 				<form onsubmit="findId(event)">
 				<div class="mb-3 mt-3 d-flex justify-content-center ">
