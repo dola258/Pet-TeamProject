@@ -8,11 +8,13 @@ input[type="radio"] {
 }
 
 .container {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	min-height: 75vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   min-height: 30vh;
 }
+
+
 </style>
 
 
@@ -21,6 +23,7 @@ input[type="radio"] {
 </div>
 <div class="container">
 	<form action="" method="">
+		<div style="margin:0 auto">
 		<div class="form-group">
 			<label for="uname">아이디</label> 
 			<input type="text" class="form-control" id="uname" style="width: 400px;" name="uname" readonly>
@@ -59,6 +62,7 @@ input[type="radio"] {
 		<div class="d-flex justify-content-around">
 			<button type="submit" class="btn btn-success">수정하기</button>
 			<button type="button" class="btn btn-secondary">뒤로가기</button>
+		</div>
 		</div>
 	</form>
 </div>

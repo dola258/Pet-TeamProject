@@ -2,6 +2,7 @@
 <%@ include file="../../layout/header.jsp"%>
 
 <div class="container">
+	<h1>QnA</h1>
 	<div class="card">
 		<div class="card-header">
 			<div class="d-flex justify-content-around">

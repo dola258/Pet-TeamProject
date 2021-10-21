@@ -23,7 +23,7 @@
 				<br>
 				<div class="mb-3 mt-3 d-flex justify-content-center">
 					<div class="d-flex flex-column">
-						<label for="name">이름:</label> 
+						<label for="name">이름</label> 
 						<input type="text" class="form-control" id="name" placeholder="이름을 입력해주세요." required="required" style="width:400px;">
 					</div>	
 				</div>

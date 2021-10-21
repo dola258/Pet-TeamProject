@@ -23,7 +23,8 @@ input[type="radio"] {
 <div class="container">
 	<form action="" method="">
 		<div class="form-group">
-			<label for="uname">아이디</label> <input type="text" class="form-control" id="uname" placeholder="아이디를 입력하세요" style="width: 400px;" name="uname" required>
+			<label for="uname">아이디</label> 
+			<input type="text" class="form-control" id="uname" placeholder="아이디를 입력하세요" style="width: 400px;" name="uname" required>
 		</div>
 		<br>
 		<div class="form-group">

@@ -2,7 +2,7 @@
 <%@ include file="../../layout/header.jsp"%>
 
 <div class="container">
-	<h1>공지사항</h1>
+	<h1>자랑하기</h1>
 	<form action="">
 		<div class="mt-4 p-5 bg-light text-white rounded">
 			<input type="text" class="form-control" placeholder="제목을 입력하세요.">

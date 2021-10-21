@@ -2,7 +2,7 @@
 <%@ include file="../../layout/header.jsp"%>
 
 <div class="container">
-	<h1>공지사항</h1>
+	<h1>자랑하기</h1>
 	<table class="table table-hover">
 		<thead>
 			<tr>
