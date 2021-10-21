@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../layout/header.jsp"%>
+
 <div class="container">
 	<h1>공지사항</h1>
 	<table class="table table-hover">
@@ -8,7 +9,7 @@
 				<th>글 번호</th>
 				<th>제목</th>
 				<th>작성일</th>
-				<th>추천</th>
+				<th>조회수</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -33,8 +34,8 @@
 			</tr>
 		</tbody>
 	</table>
-
-	<br /> <br />
+	<br>
+	<br>
 	<div class="d-flex justify-content-between">
 		<ul class="pagination order-2">
 			<li class="page-item"><a class="page-link" href="#"><</a></li>
@@ -44,10 +45,8 @@
 			<li class="page-item"><a class="page-link" href="#">></a></li>
 		</ul>
 		<div class="item order-1"></div>
-		<button type="button" class="btn btn-primary btn-xs order-3 h-25 " onclick="location.href='#'">글쓰기</button>
+		<button type="button" class="btn btn-success btn-xs order-3 h-25 " onclick="location.href='#'">글쓰기</button>
 	</div>
-
-
 </div>
 
 <%@ include file="../layout/footer.jsp"%>
