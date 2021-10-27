@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html;charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -20,16 +21,13 @@
 	rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
 </head>
 <body style="min-height: 100%">
 
 	<nav class="navbar navbar-expand-sm bg-success navbar-dark ">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="#"><h1>댕냥이천국</h1></a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
-				<span class="navbar-toggler-icon"></span>
-			</button>
+			<a class="navbar-brand d-flex justify-content-center" href="#" style="text-align: right;"><img src="/header/logo.png" style="float: left; height: 35px">  <h2>댕냥이천국</h2></a>
 			<div class="collapse navbar-collapse" id="collapsibleNavbar">
 				<ul class="navbar-nav">
 					<li class="nav-item dropdown"><a

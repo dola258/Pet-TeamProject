@@ -11,7 +11,7 @@
 			<hr class="bg-dark">
 			<br />
 			<div class="d-flex justify-content-end">
-				<button type="submit" class="btn btn-dark" >글수정</button>
+				<button type="submit" class="btn btn-success" >글수정</button>
 				<button type="button" class="btn btn-secondary" style="margin-left: 20px" onclick="location.href='#'">취소</button>
 			</div>
 		</div>

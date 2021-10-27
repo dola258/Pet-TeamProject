@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+
+
+.inner-container {
+	width: 30%;
+	float: none;
+	margin: 0 auto;
+}

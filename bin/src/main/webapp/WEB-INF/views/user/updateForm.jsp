@@ -16,8 +16,9 @@
 				for="email">이메일</label> <input type="text" class="form-control"
 				id="email"> <label for="phone">전화번호</label> <input
 				type="text" class="form-control" id="phone"><br>
-			<div class="d-flex justify-content-center">
-				<button type="button" class="btn btn-success">회원정보 수정</button>
+			<div class="d-flex justify-content-around">
+				<button type="button" class="btn btn-success">수정완료</button>
+				<button type="button" class="btn btn-secondary" style="width: 90px;">취소</button>
 			</div>
 		</div>
 	</div>

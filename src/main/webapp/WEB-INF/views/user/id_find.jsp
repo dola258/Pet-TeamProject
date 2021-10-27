@@ -2,13 +2,17 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../layout/header.jsp"%>
 
+<style>
 
+	@import url("/user/idfind.css")
+
+</style>
 <div class="container">
 	<div class="d-flex justify-content-center">
-		<div class="d-flex flex-column" style="width:600px;">
+		<div class="d-flex flex-column inner-container">
 			<div>
 				<button type="button" class="btn btn-outline-success active" data-bs-toggle="button" aria-pressed="true" nclick="location.href='#'">아이디 찾기</button>
-				<button type="button" class="btn btn-outline-warning" onclick="location.href='#'">비밀번호 찾기</button>
+				<button type="button" class="btn btn-outline-warning" onclick="location.href='#'">비밀번호 변경</button>
 				<div class="border border-success"></div>
 			</div>
 			<div>
@@ -16,27 +20,27 @@
 				<div class="mb-3 mt-3 d-flex justify-content-center ">
 					<div class="d-flex flex-column">
 						<label for="name">이름</label> 
-						<input type="text" class="form-control" id="name" placeholder="이름을 입력해주세요." required="required" style="width:400px;">
+						<input type="text" class="form-control inputs" id="name" placeholder="이름을 입력해주세요." required="required">
 					</div>
 				</div>
 				<br>
 				<div class="mb-3 mt-3 d-flex justify-content-center">
-					<div style="width: 400px;">
-					<label for="birthday">생년월일</label>&emsp;
-					<input type="date" name="dateofbirth" required="required">
+					<div class="inputs">
+						<label for="birthday">생년월일</label>&emsp;
+						<input type="date" name="dateofbirth" required="required">
 					</div>
 				</div>
 				<br>
 				<div class="mb-3 d-flex justify-content-center ">
 					<div class="d-flex flex-column">
 						<label for="email">이메일</label> 
-						<input type="email" class="form-control" id="email" placeholder="등록된 이메일을 입력해주세요"	required="required" style="width:400px;">
+						<input type="email" class="form-control inputs" id="email" placeholder="등록된 이메일을 입력해주세요"	required="required">
 					</div>
 				</div>
-				<p style="text-align: center;">등록된 이메일 주소로 아이디가 전송됩니다.</p>
+				<p style="text-align: center;">등록된 이메일 주소로 확인링크가 전송됩니다.</p>
 				<div class="d-flex justify-content-center">
-					<button type="submit" class="btn btn-success">&emsp;찾기&emsp;</button>
-					<button type="button" class="btn btn-secondary" style="margin-left: 10px" onclick="location.href='#'">&emsp;취소&emsp;</button>
+					<button type="submit" class="btn btn-success btns">찾기</button>
+					<button type="button" class="btn btn-secondary btns btn-cancel" onclick="location.href='#'">취소</button>
 				</div>
 				</form>
 			</div>

@@ -1,14 +1,19 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../layout/header.jsp" %>
 
+<style>
+	
+	@import url("/user/loginForm.css");
+	
+</style>
 
 <div class="container">
  	<form action="/login"  method="post">
  		<div class="text-center" >
- 			<h1>Login</h1>
+ 			<h1>로그인</h1>
  		</div>
  		<br>
-       	<div style="width: 30%; float:none; margin:0 auto" >
+       	<div class="inner-container">
       		<label for="Id">&nbsp; 아이디</label>
       		<input type="text" class="form-control" id="Id"  placeholder="아이디를 입력하세요" name="userId"  class="center">
     		<br>
