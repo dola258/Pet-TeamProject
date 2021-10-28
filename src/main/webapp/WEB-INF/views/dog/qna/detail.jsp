@@ -2,6 +2,7 @@
 <%@ include file="../../layout/header.jsp"%>
 
 <div class="container">
+	<h1>강아지/QnA/디테일</h1>
 	<h1>QnA</h1>
 	<div class="card">
 		<div class="card-header">

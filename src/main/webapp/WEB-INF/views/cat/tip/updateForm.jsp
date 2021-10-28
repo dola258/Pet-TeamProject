@@ -8,6 +8,7 @@
 </style>
 
 <div class="container">
+	<h1>고양이/꿀팁/글수정</h1>
 	<h1>꿀팁</h1>
 	<form action="">
 		<div class="mt-4 p-5 bg-light text-white rounded">
