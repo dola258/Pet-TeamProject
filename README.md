@@ -17,7 +17,7 @@
 
 ###DB연결방법
 ```sql
-mariaDB create user 'pet'@'%' identified by 'pet1234'; \
+create user 'pet'@'%' identified by 'pet1234'; \
 GRANT ALL PRIVILEGES ON . TO 'pet'@'%'; 
 create database petdb;
 ```
