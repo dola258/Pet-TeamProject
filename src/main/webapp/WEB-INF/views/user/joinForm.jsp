@@ -14,17 +14,17 @@
 <div class="container">
 	<form action="" method="">
 		<div class="form-group">
-			<label for="uname">아이디</label> 
-			<input type="text" class="form-control inputs" id="uname" placeholder="아이디를 입력하세요" name="uname" required>
+			<label for="username">아이디</label> 
+			<input type="text" class="form-control inputs" id="username" placeholder="아이디를 입력하세요" name="username" required>
 		</div>
 		<br>
 		<div class="form-group">
-			<label for="pwd">비밀번호</label> 
-			<input type="password" class="form-control inputs" id="pwd" placeholder="패스워드를 입력하세요" name="pswd" required>
+			<label for="password">비밀번호</label> 
+			<input type="password" class="form-control inputs" id="password" placeholder="패스워드를 입력하세요" name="password" required>
 		</div>
 		<br>
 		<div class="form-group">
-			<label for="pwd">이름</label> 
+			<label for="name">이름</label> 
 			<input type="text" class="form-control inputs" id="name" placeholder="이름을 입력하세요" name="name" required>
 		</div>
 		<br>
@@ -34,7 +34,7 @@
 		</div>
 		<br>
 		<div class="form-group">
-			<label for="pwd">전화번호(숫자만 입력해주세요)</label> 
+			<label for="phone">전화번호(숫자만 입력해주세요)</label> 
 			<input type="text" pattern="[0-9]+" class="form-control inputs" id="phone"	placeholder="전화번호를 입력하세요" name="phone" required>
 		</div>
 		<br>
@@ -72,10 +72,10 @@
 		<br>
 		<div class="d-flex">
 			<div class="flex-fill">
-				<label for="pwd">생년월일</label><br>
+				<label for="birth">생년월일</label><br>
 			</div>
 			<div class="from-data flex-fill">
-				<input type="date" ><br>
+				<input type="date" name="birth"><br>
 			</div>
 		</div>
 		<br>
