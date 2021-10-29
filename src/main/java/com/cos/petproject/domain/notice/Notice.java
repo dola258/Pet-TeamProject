@@ -27,9 +27,9 @@ public class Notice {
 	private int id; //PK (자동증가 번호)
 	
 	@Column(nullable = false, length = 50)
-	private String title; // 아이디
+	private String title; // 제목
 	@Lob
-	private String content;
+	private String content; // 내용
 	
 	@JoinColumn(name = "userId")
 	@ManyToOne

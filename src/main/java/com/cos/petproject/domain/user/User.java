@@ -21,17 +21,17 @@ public class User {
 	@Column(nullable = false, length = 20, unique = true)
 	private String username; // 아이디
 	@Column(nullable = false, length = 70)
-	private String password;
+	private String password; // 비밀번호
 	@Column(nullable = false, length = 20)
-	private String name;
+	private String name;     // 이름
 	@Column(nullable = false, length = 20)
-	private String nickname;
+	private String nickname; // 닉네임
 	@Column(nullable = false, length = 20, unique = true)
-	private String phone;
+	private String phone;    // 전화번호
 	@Column(nullable = false, length = 50, unique = true)
-	private String email;
+	private String email;    // 이메일
 	@Column(nullable = false, length = 5)
-	private String gender;
+	private String gender;   // 성별
 	@Column(nullable = false, length = 50)
-	private String birth;
+	private String birth;    // 생년월일
 }

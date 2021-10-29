@@ -27,7 +27,7 @@ public class Comment {
 	private int id; //PK (자동증가 번호)
 
 	@Column(nullable = false)
-	private String content;
+	private String content; // 내용
 
 	@JoinColumn(name = "userId")
 	@ManyToOne
