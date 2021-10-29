@@ -2,13 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../layout/header.jsp"%>
 
-<style>
-
-	@import url("/user/joinForm.css")
+<style type="text/css" >
+	
+	@import url("/user_Css/joinForm.css");
 
 </style>
 
-<div style="text-align: center">
+<div class="cate">
 	<h2>회원가입</h2>
 </div>
 <div class="container">

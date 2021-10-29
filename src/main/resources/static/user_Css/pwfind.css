@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+
+@import url("/user_Css/button/btn-cancel.css");
+
+.inputs {
+	width: 400px;
+}
+
+
+.inner-container {
+	width: 600px;
+}

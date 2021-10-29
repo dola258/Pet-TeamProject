@@ -2,6 +2,7 @@
 <%@ include file="../../layout/header.jsp"%>
 
 <div class="container">
+	<h1>강아지/꿀팁/글작성</h1>
 	<h1>꿀팁</h1>
 	<form action="" >
 		<div class="mt-4 p-5 bg-light text-white rounded">

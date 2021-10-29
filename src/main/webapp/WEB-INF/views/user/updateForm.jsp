@@ -4,7 +4,7 @@
 
 <style>
 
-	@import url("/user/updateForm.css");
+	@import url("/user_Css/updateForm.css");
 
 </style>
 

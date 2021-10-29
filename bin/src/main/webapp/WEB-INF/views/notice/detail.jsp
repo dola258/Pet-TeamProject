@@ -3,6 +3,7 @@
 <%@ include file="../layout/header.jsp"%>
 
 <div class="container">
+	<h1>공지사항/디테일</h1>
 	<h1>공지사항</h1>
 	<div class="card">
 		<div class="card-header">

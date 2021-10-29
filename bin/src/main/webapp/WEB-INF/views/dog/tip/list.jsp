@@ -2,6 +2,7 @@
 <%@ include file="../../layout/header.jsp"%>
 
 <div class="container">
+	<h1>강아지/꿀팁/리스트</h1>
 	<h1>꿀팁</h1>
 	<table class="table table-hover">
 		<thead>
@@ -9,7 +10,14 @@
 				<th>글 번호</th>
 				<th>제목</th>
 				<th>작성일</th>
-				<th>조회수</th>
+				<th>
+					<div  class="d-flex justify-content-between">
+						<div class="align-self-end">조회수</div>
+						<div>
+							<button type="button" class="btn btn-success" onclick="location.href='#'">글쓰기</button>
+						</div>
+					</div>
+				</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -36,7 +44,7 @@
 	</table>
 	<br>
 	<br>
-	<div class="d-flex justify-content-between">
+	<div class="d-flex justify-content-center">
 		<ul class="pagination order-2">
 			<li class="page-item"><a class="page-link" href="#"><</a></li>
 			<li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -45,7 +53,6 @@
 			<li class="page-item"><a class="page-link" href="#">></a></li>
 		</ul>
 		<div class="item order-1"></div>
-		<button type="button" class="btn btn-success btn-xs order-3 h-25 " onclick="location.href='#'">글쓰기</button>
 	</div>
 </div>
 

@@ -4,7 +4,7 @@
 
 <style>
 
-	@import url("/user/idfind.css")
+	@import url("/user_Css/idfind.css");
 
 </style>
 <div class="container">

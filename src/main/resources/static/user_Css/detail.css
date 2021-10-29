@@ -1,0 +1,21 @@
+@charset "utf-8";
+
+
+input[type="radio"] {
+	width: 18px;
+}
+
+.container {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   min-height: 30vh;
+}
+
+.inputs {
+	width: 400px;
+}
+
+.inner-container {
+	margin: 0 auto;
+}
