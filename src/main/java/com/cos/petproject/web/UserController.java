@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cos.petproject.domain.user.UserRepository;
 
@@ -22,34 +23,34 @@ public class UserController {
 	
 	// 아이디 찾기 기능---------------------------------------
 	@GetMapping("/idFind")
-	public String idFind() {
+	public @ResponseBody String idFind() {
 		return "/";
 	}
 	
 	// 비밀번호 변경 기능 ------------------------------------
 	@PutMapping("/pwChange")
-	public String pwChange() {
+	public @ResponseBody String pwChange() {
 		return "/";
 	}
 	
 	
 	// 로그인 기능--------------------------------------------
 	@PostMapping("/login")
-	public String login() {
+	public @ResponseBody String login() {
 		return "/";
 	}
 	
 	
 	// 회원가입 기능 --------------------------------------------
 	@PostMapping("/join")
-	public String join() {
+	public @ResponseBody String join() {
 		return "/user/loginForm";
 	}
 	
 	
 	// 회원정보 수정 기능-------------------------------------------
 	@PutMapping("/user/{id}")
-	public String update() {
+	public @ResponseBody String update() {
 		return "/user/detail";
 	}
 	

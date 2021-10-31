@@ -34,4 +34,6 @@ public class User {
 	private String gender;   // 성별
 	@Column(nullable = false, length = 50)
 	private String birth;    // 생년월일
+	@Column(nullable = false, length = 20)
+	private String authority;// 권한
 }

@@ -13,7 +13,7 @@ public class VisitorController {
 	
 	private final VisitorRepository visitorRepository;
 	
-	@GetMapping("/")
+	@GetMapping("/vistor")
 	public String home() {
 		return "/";
 	}
