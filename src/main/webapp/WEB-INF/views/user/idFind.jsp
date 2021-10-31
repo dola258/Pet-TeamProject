@@ -16,25 +16,25 @@
 				<div class="border border-success"></div>
 			</div>
 			<div>
-				<form onsubmit="findId(event)">
+				<form onsubmit="findId(event, name, birth, email)">
 				<div class="mb-3 mt-3 d-flex justify-content-center ">
 					<div class="d-flex flex-column">
 						<label for="name">이름</label> 
-						<input type="text" class="form-control inputs" id="name" placeholder="이름을 입력해주세요." required="required">
+						<input type="text" class="form-control inputs" name="name" id="name" placeholder="이름을 입력해주세요." required="required">
 					</div>
 				</div>
 				<br>
 				<div class="mb-3 mt-3 d-flex justify-content-center">
 					<div class="inputs">
-						<label for="birthday">생년월일</label>&emsp;
-						<input type="date" name="dateofbirth" required="required">
+						<label for="birth">생년월일</label>&emsp;
+						<input type="date" name="birth" id="birth" required="required">
 					</div>
 				</div>
 				<br>
 				<div class="mb-3 d-flex justify-content-center ">
 					<div class="d-flex flex-column">
 						<label for="email">이메일</label> 
-						<input type="email" class="form-control inputs" id="email" placeholder="등록된 이메일을 입력해주세요"	required="required">
+						<input type="email" class="form-control inputs" name="email" id="email" placeholder="등록된 이메일을 입력해주세요"	required="required">
 					</div>
 				</div>
 				<p style="text-align: center;">등록된 이메일 주소로 확인링크가 전송됩니다.</p>
@@ -57,7 +57,7 @@
 					</div>
 
 					<!-- Modal body -->
-					<div class="modal-body">등록된 이메일 주소로 아이디가 전송되었습니다.</div>
+					<div class="modal-body">${userEntity.username }</div>
 
 					<!-- Modal footer -->
 					<div class="modal-footer">
@@ -70,10 +70,29 @@
 </div>
 
 <script>
-	async
-	function findId(event) {
-		event.preventDefault();
-
+	async function findId(event, name, birth, email) {
+			event.preventDefault();
+		  	
+			
+			console.log(document.querySelector("#email").value);
+			console.log(document.querySelector("#birth").value);
+	
+			let IdFindDto = {
+				   name: document.querySelector("#name").value,
+				   email: document.querySelector("#email").value,
+				   birth: document.querySelector("#birth").value
+		   };
+			
+			console.log(IdFindDto);
+			let response = await fetch("http://localhost:8080/findId", {
+				method: "post",
+				body: JSON.stringify(IdFindDto),
+				headers: {
+					"Content-Type": "application/json; charset=utf-8"
+				}
+			});
+			
+			let parseResponse = await response.json();
 		$("#idFindModal").modal('show');
 
 	}

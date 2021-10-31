@@ -20,6 +20,19 @@ public class UserController {
 	private final HttpSession session;
 	
 	
+	// 아이디 찾기 기능---------------------------------------
+	@GetMapping("/idFind")
+	public String idFind() {
+		return "/";
+	}
+	
+	// 비밀번호 변경 기능 ------------------------------------
+	@PutMapping("/pwChange")
+	public String pwChange() {
+		return "/";
+	}
+	
+	
 	// 로그인 기능--------------------------------------------
 	@PostMapping("/login")
 	public String login() {
@@ -48,39 +61,39 @@ public class UserController {
 		return "/"; 
 	}
 
-	@GetMapping("/loginForm")
-	public String loginForm() {
+	@GetMapping("user/loginForm")
+	public String userLoginForm() {
 		
 		return "user/loginForm";
 	}
 
-	@GetMapping("/joinForm")
-	public String joinForm() {
+	@GetMapping("/user/joinForm")
+	public String userJoinForm() {
 		
 		return "user/joinForm";
 	}
 	
-	@GetMapping("/updateForm")
-	public String updateForm() {
+	@GetMapping("/user/updateForm")
+	public String userUpdateForm() {
 		
 		return "user/updateForm";
 	}
 
-	@GetMapping("/detail")
-	public String detail() {
+	@GetMapping("/user/detail")
+	public String userDetail() {
 		
 		return "user/detail";
 	}
 	
-	@GetMapping("/idfind")
-	public String idFind() {
+	@GetMapping("/user/idFind")
+	public String userIdFind() {
 		
-		return "user/id_find";
+		return "user/idFind";
 	}
 	
-	@GetMapping("/pwfind")
-	public String pwFind() {
+	@GetMapping("/user/pwfind")
+	public String userPwFind() {
 		
-		return "user/pw_find";
+		return "user/pwFind";
 	}
 }
