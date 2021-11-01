@@ -1,4 +1,4 @@
-package com.cos.petproject.web;
+package com.cos.petproject.web.controller;
 
 import javax.servlet.http.HttpSession;
 

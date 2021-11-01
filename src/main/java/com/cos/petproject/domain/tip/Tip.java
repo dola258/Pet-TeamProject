@@ -37,6 +37,10 @@ public class Tip {
 	@Lob
 	private String content; // 내용
 	
+	@Column(nullable = false, length = 10)
+	private int counter = 0;
+	
+	
 	@JoinColumn(name = "userId")
 	@ManyToOne
 	private User user;

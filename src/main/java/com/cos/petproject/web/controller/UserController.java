@@ -1,7 +1,8 @@
-package com.cos.petproject.web;
+package com.cos.petproject.web.controller;
 
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,7 +10,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cos.petproject.domain.user.User;
 import com.cos.petproject.domain.user.UserRepository;
+import com.cos.petproject.util.MyAlgorithm;
+import com.cos.petproject.util.SHA;
+import com.cos.petproject.util.Script;
+import com.cos.petproject.web.dto.user.LoginReqDto;
 
 import lombok.RequiredArgsConstructor;
 
@@ -35,10 +41,12 @@ public class UserController {
 	
 	
 	// 로그인 기능--------------------------------------------
-	@PostMapping("/login")
-	public @ResponseBody String login() {
-		return "/";
-	}
+		@PostMapping("/login")
+		public @ResponseBody String login() {
+			
+
+			return "/";
+		}
 	
 	
 	// 회원가입 기능 --------------------------------------------
@@ -96,5 +104,12 @@ public class UserController {
 	public String userPwFind() {
 		
 		return "user/pwFind";
+	}
+	
+	
+	@GetMapping("/admin/home")
+	public String adminHome() {
+		
+		return "admin/home";
 	}
 }
