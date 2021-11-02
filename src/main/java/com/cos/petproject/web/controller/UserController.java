@@ -78,9 +78,37 @@ public class UserController {
 
 	// 회원가입 기능 --------------------------------------------
 	@PostMapping("/join")
-	public @ResponseBody String join() {
+	public @ResponseBody String join(@Valid JoinReqDto dto, BindingResult bindingResult ) {
 		
-		return "/";
+		// 유효성
+		if(bindingResult.hasErrors()) {
+			Map<String, String> errorMap = new HashMap<>();
+			for(FieldError error : bindingResult.getFieldErrors()) {
+				errorMap.put(error.getField(), error.getDefaultMessage());
+				System.out.println("필드 : " + error.getField());
+				System.out.println("메세지 : " + error.getDefaultMessage());
+			}
+			return Script.back(errorMap.toString());
+		}
+		
+		// 입력받은 비밀번호 해쉬값으로 변경
+		String encPassword = SHA.encrypt(dto.getPassword(), MyAlgorithm.SHA256);
+		// 패스워드를 해쉬패스워드로 저장하려고
+		dto.setPassword(encPassword);
+	
+		System.out.println(dto.getUsername()+dto.getAuthority());
+		if(dto.getUsername().equals("ssar")) {
+			dto.setAuthority("admin");
+		} else {
+			dto.setAuthority("guest");
+		}
+		// save = insert
+		userRepository.save(dto.toEntity());
+		
+		
+		
+		
+		return Script.href("/user/loginForm"); 
 	}
 
 	// 회원정보 수정 기능-------------------------------------------
