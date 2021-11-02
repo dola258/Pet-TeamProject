@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cos.petproject.domain.authMail.AuthEmail;
+import com.cos.petproject.domain.authMail.AuthEmailRepository;
 import com.cos.petproject.domain.user.UserRepository;
-import com.cos.petproject.handler.exception.MyAsyncNotFoundException;
 import com.cos.petproject.util.MyAlgorithm;
 import com.cos.petproject.util.SHA;
 import com.cos.petproject.util.Script;
@@ -29,6 +30,7 @@ public class UserController {
 
 	private final UserRepository userRepository;
 	private final HttpSession session;
+	private final AuthEmailRepository authEmailRepository;
 
 	// 아이디 찾기 기능---------------------------------------
 	@GetMapping("/id/modal")
@@ -57,6 +59,7 @@ public class UserController {
 	@PostMapping("/join")
 	public @ResponseBody String join(@Valid JoinReqDto dto, BindingResult bindingResult ) {
 		
+		
 		// 유효성
 		if(bindingResult.hasErrors()) {
 			Map<String, String> errorMap = new HashMap<>();
@@ -68,12 +71,29 @@ public class UserController {
 			return Script.back(errorMap.toString());
 		}
 		
+		// 아이디, 전화번호, 이메일 중복확인
+		String idCheck = userRepository.mIdCheck(dto.getUsername());
+		String phoneCheck = userRepository.mPhoneCheck(dto.getPhone());
+		String emailCheck = userRepository.mEmailCheck(dto.getEmail());
+		
+		if(idCheck != null) {
+			return Script.back("존재하는 아이디입니다");
+		}
+		if(emailCheck != null) {
+			return Script.back("존재하는 이메일입니다");
+		}
+		if(phoneCheck != null) {
+			return Script.back("존재하는 전화번호입니다");
+		}
+			
+		
+		
+		
 		// 입력받은 비밀번호 해쉬값으로 변경
 		String encPassword = SHA.encrypt(dto.getPassword(), MyAlgorithm.SHA256);
 		// 패스워드를 해쉬패스워드로 저장하려고
 		dto.setPassword(encPassword);
-	
-		System.out.println(dto.getUsername()+dto.getAuthority());
+		
 		if(dto.getUsername().equals("ssar")) {
 			dto.setAuthority("admin");
 		} else {

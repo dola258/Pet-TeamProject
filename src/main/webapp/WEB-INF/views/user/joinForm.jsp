@@ -49,7 +49,7 @@
 		<div class="form-group">
 			<label for="">인증 번호</label>
 			<div class="d-flex justify-content-between"> 
-				<input type="text" class="form-control e-input" id="authCode" required>
+				<input type="text" class="form-control e-input" id="authCode" name="authKey" required>
 				<button type="button" class="btn btn-outline-info e-btn"  id="authChk"  onclick="authChkT();">확인</button>
 			</div>
 			<div class="text-center" id="mail_check_input_box_warn"></div>

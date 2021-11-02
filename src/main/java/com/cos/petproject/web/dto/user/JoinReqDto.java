@@ -49,6 +49,9 @@ public class JoinReqDto {
 	@Size(min = 2, max = 5)
 	private String authority;
 	
+	@NotBlank
+	@Size(min = 6)
+	private String authKey;
 	
 	
 	
