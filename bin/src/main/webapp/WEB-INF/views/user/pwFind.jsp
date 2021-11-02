@@ -4,7 +4,7 @@
 
 <style>
 
-	@import url("/user/pwfind.css");
+	@import url("/user_Css/pwfind.css");
 	
 </style>
 
@@ -21,26 +21,26 @@
 				<form onsubmit="findPassword(event)">
 				<div class="mb-3 mt-3 d-flex justify-content-center ">
 					<div class="d-flex flex-column">
-						<label for="name">아이디</label> 
-						<input type="text" class="form-control inputs" id="id" placeholder="아이디를 입력해주세요." required="required">
+						<label for="username">아이디</label> 
+						<input type="text" class="form-control inputs" id="username" name="username" placeholder="아이디를 입력해주세요." required="required">
 					</div>
 				</div>
 				<div class="mb-3 mt-3 d-flex justify-content-center">
 					<div class="d-flex flex-column">
 						<label for="name">이름</label> 
-						<input type="text" class="form-control inputs" id="name" placeholder="이름을 입력해주세요." required="required">
+						<input type="text" class="form-control inputs" id="name" name="name" placeholder="이름을 입력해주세요." required="required">
 					</div>	
 				</div>
 				<div class="mb-3 mt-3 d-flex justify-content-center">
 					<div class="inputs">
-						<label for="birthday">생년월일</label>&emsp;
-						<input type="date" name="dateofbirth" required="required">
+						<label for="birth">생년월일</label>&emsp;
+						<input type="date" id="birth" name="birth" required="required">
 					</div>
 				</div>
 				<div class="mb-3 d-flex justify-content-center ">
 					<div class="d-flex flex-column">
 						<label for="email">이메일</label> 
-						<input type="email" class="form-control inputs" id="email" placeholder="등록된 이메일을 입력해주세요"	required="required">
+						<input type="email" class="form-control inputs" id="email" name="email" placeholder="등록된 이메일을 입력해주세요"	required="required">
 					</div>
 				</div>
 				<p style="text-align: center;">등록된 이메일 주소로 확인링크가 전송됩니다.</p>

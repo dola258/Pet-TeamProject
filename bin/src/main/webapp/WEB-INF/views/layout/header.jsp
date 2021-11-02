@@ -27,7 +27,10 @@
 
 	<nav class="navbar navbar-expand-sm bg-success navbar-dark ">
 		<div class="container-fluid">
-			<a class="navbar-brand d-flex justify-content-center" href="#" style="text-align: right;"><img src="/header/logo.png" style="float: left; height: 35px">  <h2>댕냥이천국</h2></a>
+			<a class="navbar-brand d-flex justify-content-center" href="#"
+				style="text-align: right;"><img src="/header/logo.png"
+				style="float: left; height: 35px">
+				<h2>댕냥이천국</h2></a>
 			<div class="collapse navbar-collapse" id="collapsibleNavbar">
 				<ul class="navbar-nav">
 					<li class="nav-item dropdown"><a
@@ -49,11 +52,39 @@
 				</ul>
 			</div>
 			<div>
-				<ul class="navbar-nav justify-content-end">
-					<li class="nav-item"><a class="nav-link" href="#">로그인</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">회원가입</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">공지사항</a></li>
-				</ul>
+
+
+
+				<c:choose>
+					<c:when test="${empty sessionScope.princlpal}">
+						<ul class="navbar-nav justify-content-end">
+							<li class="nav-item"><a class="nav-link" href="/loginForm">로그인</a></li>
+							<li class="nav-item"><a class="nav-link" href="/joinForm">회원가입</a></li>
+							<li class="nav-item"><a class="nav-link" href="/notice">공지사항</a></li>
+						</ul>
+					</c:when>
+					<c:otherwise>
+						<c:choose>
+							<c:when test="${sessionScope.principal.authority eq 'admin'}">
+								<ul class="navbar-nav justify-content-end">
+									<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
+									<li class="nav-item"><a class="nav-link" href="detail/${sessionScope.principal.id }">내정보</a></li>
+									<li class="nav-item"><a class="nav-link" href="/notice">공지사항</a></li>
+									<li class="nav-item"><a class="nav-link" href="/admin/home">관리자페이지</a></li>
+								</ul>
+							</c:when>
+							<c:otherwise>
+								<ul class="navbar-nav justify-content-end">
+									<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
+									<li class="nav-item"><a class="nav-link" href="detail/${sessionScope.principal.id }">내정보</a></li>
+									<li class="nav-item"><a class="nav-link" href="/notice">공지사항</a></li>
+								</ul>
+							</c:otherwise>
+						</c:choose>
+					</c:otherwise>
+				</c:choose>
+
+
 			</div>
 		</div>
 	</nav>

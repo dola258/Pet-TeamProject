@@ -1,4 +1,6 @@
-@charset "utf-8";
+@charset "UTF-8";
+
+
 
 input[type="radio"] {
 	width: 18px;
@@ -9,6 +11,14 @@ input[type="radio"] {
 	justify-content: center;
 	align-items: center;
 	min-height: 75vh;
+}
+
+.cate {
+	text-align: center;
+}
+
+.inner-container {
+	width: 600px;
 }
 
 .inputs {

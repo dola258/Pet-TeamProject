@@ -4,7 +4,7 @@
 <%@ include file="../layout/header.jsp"%>
 <style>
 
-	@import url("/user/detail.css");
+	@import url("/user_Css/detail.css");
 	
 </style>
 

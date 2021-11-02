@@ -89,7 +89,7 @@ public class UserController {
 		return "user/updateForm";
 	}
 
-	@GetMapping("/user/detail")
+	@GetMapping("/user/detail/{id}")
 	public String userDetail() {
 		
 		return "user/detail";
