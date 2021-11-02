@@ -71,28 +71,9 @@
 
 <script>
 	async function findId(event, name, birth, email) {
-			event.preventDefault();
+		event.preventDefault();
 		  	
-			
-			console.log(document.querySelector("#email").value);
-			console.log(document.querySelector("#birth").value);
-	
-			let IdFindDto = {
-				   name: document.querySelector("#name").value,
-				   email: document.querySelector("#email").value,
-				   birth: document.querySelector("#birth").value
-		   };
-			
-			console.log(IdFindDto);
-			let response = await fetch("http://localhost:8080/findId", {
-				method: "post",
-				body: JSON.stringify(IdFindDto),
-				headers: {
-					"Content-Type": "application/json; charset=utf-8"
-				}
-			});
-			
-			let parseResponse = await response.json();
+		
 		$("#idFindModal").modal('show');
 
 	}

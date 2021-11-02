@@ -27,6 +27,7 @@ public class UserController {
 	private final HttpSession session;
 	
 	
+	
 	// 아이디 찾기 기능---------------------------------------
 	@GetMapping("/idFind")
 	public @ResponseBody String idFind() {

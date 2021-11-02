@@ -56,7 +56,7 @@
 
 
 				<c:choose>
-					<c:when test="${empty sessionScope.userEntity}">
+					<c:when test="${empty sessionScope.princlpal}">
 						<ul class="navbar-nav justify-content-end">
 							<li class="nav-item"><a class="nav-link" href="/loginForm">로그인</a></li>
 							<li class="nav-item"><a class="nav-link" href="/joinForm">회원가입</a></li>
@@ -65,10 +65,10 @@
 					</c:when>
 					<c:otherwise>
 						<c:choose>
-							<c:when test="${sessionScope.userEntity.authority eq 'admin'}">
+							<c:when test="${sessionScope.principal.authority eq 'admin'}">
 								<ul class="navbar-nav justify-content-end">
 									<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
-									<li class="nav-item"><a class="nav-link" href="detail/${sessionScope.userEntity.id }">내정보</a></li>
+									<li class="nav-item"><a class="nav-link" href="detail/${sessionScope.principal.id }">내정보</a></li>
 									<li class="nav-item"><a class="nav-link" href="/notice">공지사항</a></li>
 									<li class="nav-item"><a class="nav-link" href="/admin/home">관리자페이지</a></li>
 								</ul>
@@ -76,7 +76,7 @@
 							<c:otherwise>
 								<ul class="navbar-nav justify-content-end">
 									<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
-									<li class="nav-item"><a class="nav-link" href="detail/${sessionScope.userEntity.id }">내정보</a></li>
+									<li class="nav-item"><a class="nav-link" href="detail/${sessionScope.principal.id }">내정보</a></li>
 									<li class="nav-item"><a class="nav-link" href="/notice">공지사항</a></li>
 								</ul>
 							</c:otherwise>
