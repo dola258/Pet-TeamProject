@@ -20,24 +20,24 @@
 				<div class="mb-3 mt-3 d-flex justify-content-center ">
 					<div class="d-flex flex-column">
 						<label for="name">이름</label> 
-						<input type="text" class="form-control inputs" name="name" id="name" placeholder="이름을 입력해주세요." >
+						<input type="text" class="form-control inputs" name="name" id="name" placeholder="이름을 입력해주세요."  required="required">
 					</div>
 				</div>
 				<br>
 				<div class="mb-3 mt-3 d-flex justify-content-center">
 					<div class="inputs">
 						<label for="birth">생년월일</label>&emsp;
-						<input type="date" name="birth" id="birth" >
+						<input type="date" name="birth" id="birth"  required="required">
 					</div>
 				</div>
 				<br>
 				<div class="mb-3 d-flex justify-content-center ">
 					<div class="d-flex flex-column">
 						<label for="email">이메일</label> 
-						<input type="email" class="form-control inputs" name="email" id="email" placeholder="등록된 이메일을 입력해주세요"	>
+						<input type="email" class="form-control inputs" name="email" id="email" placeholder="등록된 이메일을 입력해주세요"	 required="required">
 					</div>
 				</div>
-				<p style="text-align: center;">등록된 이메일 주소로 확인링크가 전송됩니다.</p>
+				<p style="text-align: center;">입력한 정보가 일치하면 아이디를 찾을 수 있습니다.</p>
 				<div class="d-flex justify-content-center">
 					<button type="submit" class="btn btn-success btns">찾기</button>
 					<button type="button" class="btn btn-secondary btns btn-cancel" onclick="location.href='/user/loginForm'">취소</button>
@@ -61,7 +61,7 @@
 
 					<!-- Modal footer -->
 					<div class="modal-footer">
-						<button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="">닫기</button>
+						<button type="button" id="modal-exit" class="btn btn-danger" data-bs-dismiss="modal" onclick="">닫기</button>
 					</div>
 				</div>
 			</div>

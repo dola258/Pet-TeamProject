@@ -23,6 +23,7 @@ import com.cos.petproject.util.MyAlgorithm;
 import com.cos.petproject.util.SHA;
 import com.cos.petproject.util.Script;
 import com.cos.petproject.web.dto.CMRespDto;
+import com.cos.petproject.web.dto.user.IdFindDto;
 import com.cos.petproject.web.dto.user.JoinReqDto;
 
 import lombok.RequiredArgsConstructor;
@@ -36,7 +37,7 @@ public class UserController {
 
 	// 아이디 찾기 기능---------------------------------------
 	@PostMapping("/id/modal")
-	public @ResponseBody CMRespDto<String> idFind(@Valid @RequestBody JoinReqDto dto, BindingResult bindingResult, Model model) {
+	public @ResponseBody CMRespDto<String> idFind(@Valid @RequestBody IdFindDto dto, BindingResult bindingResult, Model model) {
 		
 		// 유효성
 		if(bindingResult.hasErrors()) {
@@ -54,8 +55,6 @@ public class UserController {
 		if(userEntity == null) {
 			throw new MyAsyncNotFoundException("입력한 정보가 일치하지 않아 아이디를 찾을 수 없습니다.");
 		}
-		
-		model.addAttribute("userEntity", userEntity);
 		
 		return new CMRespDto<String>(1, "성공", userEntity.getUsername());
 	}
