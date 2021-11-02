@@ -42,15 +42,15 @@
 			<label for="pwd">이메일</label>
 			<div class="d-flex justify-content-between">
 				<input type="email" class="form-control e-input" id="email" placeholder="이메일을 입력하세요" name="email" required>
-				<button type="button" class="btn btn-outline-info">인증메일 받기</button>
+				<button type="button" class="btn btn-outline-info" id= "AuthEmailButton" onclick="emailTest();">인증메일 받기</button>
 			</div>
 		</div>
 		<br>
 		<div class="form-group">
 			<label for="">인증 번호</label>
 			<div class="d-flex justify-content-between"> 
-				<input type="text" class="form-control e-input" id="" name="" required>
-				<button type="button" class="btn btn-outline-info e-btn">확인</button>
+				<input type="text" class="form-control e-input" id="autoCode" required>
+				<button type="button" class="btn btn-outline-info e-btn"  id="authChk"  onclick="authChkT();">확인</button>
 			</div>
 		</div>
 		<br>

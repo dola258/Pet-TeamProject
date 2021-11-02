@@ -16,4 +16,17 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query(value = "update user set password = :password where id = :id", nativeQuery = true)
 	User mPwChange(int id, String password);
 	
+	// 성준
+	
+	
+	// 재영
+	
+	
+	// 효빈
+	
+	
+	// 주원
+	
+	
+	
 }
