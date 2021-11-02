@@ -34,12 +34,11 @@ public class Boast {
 	
 	@Column(nullable = false, length = 50)
 	private String title; // 제목
+
 	@Lob
 	private String content; // 내용
 	
-	@Column(nullable = false, length = 10)
-	private int counter = 0;
-	
+	private int counter;
 	
 	@JoinColumn(name = "userId")
 	@ManyToOne

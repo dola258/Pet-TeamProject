@@ -20,7 +20,7 @@ public class Animal {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id; //PK (자동증가 번호)
-	@Column(nullable = false, length = 20, unique = true)
+	@Column(nullable = false, length = 10, unique = true)
 	private String kinds; // 동물 종류
 	
 }

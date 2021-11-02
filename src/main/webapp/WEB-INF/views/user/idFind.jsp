@@ -16,7 +16,7 @@
 				<div class="border border-success"></div>
 			</div>
 			<div>
-				<form onsubmit="findId(event, name, birth, email)">
+				<form onsubmit="idFind(event)">
 				<div class="mb-3 mt-3 d-flex justify-content-center ">
 					<div class="d-flex flex-column">
 						<label for="name">이름</label> 
@@ -70,7 +70,7 @@
 </div>
 
 <script>
-	async function findId(event, name, birth, email) {
+	async function idFind() {
 		event.preventDefault();
 		  	
 		

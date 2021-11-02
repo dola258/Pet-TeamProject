@@ -26,6 +26,7 @@ public class BoastController {
 	// 글작성 기능---------------------------------
 	@PostMapping("/{animalId}/boast")
 	public String save(@PathVariable int animalId) {
+		
 		if(animalId == 1) {
 			return "redirect:/"+animalId+"/boast";
 		} else if(animalId == 2){

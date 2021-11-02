@@ -13,25 +13,24 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class JoinReqDto {
-	private int id;
-	
+
 	@Size(min = 2, max = 20)
 	@NotBlank
 	private String username;
 	
-	@Size(min = 4, max = 20)
+	@Size(min = 4, max = 70)
 	@NotBlank
 	private String password;
 	
-	@Size(min = 4, max = 20)
+	@Size(min = 2, max = 20)
 	@NotBlank
 	private String name;
 	
-	@Size(min = 4, max = 20)
+	@Size(min = 2, max = 20)
 	@NotBlank
 	private String nickname;
 	
-	@Size(min = 4, max = 20)
+	@Size(min = 10, max = 11)
 	@NotBlank
 	private String phone;
 	
@@ -39,16 +38,15 @@ public class JoinReqDto {
 	@NotBlank
 	private String email;
 	
-	@Size(min = 4, max = 50)
+	@Size(min = 2, max = 5)
 	@NotBlank
 	private String gender;
 	
-	@Size(min = 4, max = 50)
+	@Size(min = 4, max = 10)
 	@NotBlank
 	private String birth;
 	
-	@Size(min = 4, max = 20)
-	@NotBlank
+	@Size(min = 2, max = 5)
 	private String authority;
 	
 	
@@ -56,13 +54,6 @@ public class JoinReqDto {
 	
 	public User toEntity() {
 		User user = new User();
-		
-		if(id == 1) {
-			authority = "admin";
-		} else {
-			authority = "guest";
-		}
-		
 		
 		user.setUsername(username);
 		user.setPassword(password);

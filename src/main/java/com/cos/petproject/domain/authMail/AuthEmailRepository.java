@@ -22,10 +22,6 @@ public interface AuthEmailRepository extends JpaRepository<AuthEmail, Integer> {
 	@Query(value = "SELECT id, email, authKey FROM authemail GROUP BY email having email = :email and authKey = :authKey", nativeQuery = true)
 	Optional<List<mChkAuthKey>> mChkAuthKey(String authKey, String email);
 	
-	// 인증 완료 후에 DB에 저장된 인증키 삭제
-	@Query(value = "Delete From AuthEmail Where email = :email ", nativeQuery = true)
-	AuthEmail mDeleteAuthKey(String email);
-	
 	// DB에 저장된 인증키불러오기 - 회원가입 클릭했을때 적은 인증키로 찾아보기
 	@Query(value = "select * from authemail where authKey = :authKey", nativeQuery = true)
 	AuthEmail mFindAuthKey(String authKey);

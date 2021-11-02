@@ -12,30 +12,30 @@
 	<h2>회원가입</h2>
 </div>
 <div class="container">
-	<form action="" method="">
+	<form action="/join" method="post">
 		<div class="form-group">
 			<label for="username">아이디</label> 
-			<input type="text" class="form-control inputs" id="username" placeholder="아이디를 입력하세요" name="username" required>
+			<input type="text" class="form-control inputs" placeholder="아이디를 입력하세요" name="username" required>
 		</div>
 		<br>
 		<div class="form-group">
 			<label for="password">비밀번호</label> 
-			<input type="password" class="form-control inputs" id="password" placeholder="패스워드를 입력하세요" name="password" required>
+			<input type="password" class="form-control inputs" placeholder="패스워드를 입력하세요" name="password" required>
 		</div>
 		<br>
 		<div class="form-group">
 			<label for="name">이름</label> 
-			<input type="text" class="form-control inputs" id="name" placeholder="이름을 입력하세요" name="name" required>
+			<input type="text" class="form-control inputs" placeholder="이름을 입력하세요" name="name" required>
 		</div>
 		<br>
 		<div class="form-group">
 			<label for="nickname">닉네임</label> 
-			<input type="text" class="form-control inputs" id="nickname" placeholder="닉네임을 입력하세요" name="nickname" required>
+			<input type="text" class="form-control inputs" placeholder="닉네임을 입력하세요" name="nickname" required>
 		</div>
 		<br>
 		<div class="form-group">
 			<label for="phone">전화번호(숫자만 입력해주세요)</label> 
-			<input type="text" pattern="[0-9]+" class="form-control inputs" id="phone"	placeholder="전화번호를 입력하세요" name="phone" required>
+			<input type="text" pattern="[0-9]+" class="form-control inputs" placeholder="전화번호를 입력하세요" name="phone" required>
 		</div>
 		<br>
 		<div class="form-group">

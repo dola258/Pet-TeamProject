@@ -26,14 +26,14 @@ public class User {
 	private String name;     // 이름
 	@Column(nullable = false, length = 20)
 	private String nickname; // 닉네임
-	@Column(nullable = false, length = 20, unique = true)
+	@Column(nullable = false, length = 11, unique = true)
 	private String phone;    // 전화번호
 	@Column(nullable = false, length = 50, unique = true)
 	private String email;    // 이메일
 	@Column(nullable = false, length = 5)
 	private String gender;   // 성별
-	@Column(nullable = false, length = 50)
+	@Column(nullable = false, length = 10)
 	private String birth;    // 생년월일
-	@Column(nullable = false, length = 20)
+	@Column(nullable = false, length = 5)
 	private String authority;// 권한
 }
