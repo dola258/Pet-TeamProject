@@ -1,9 +1,15 @@
 package com.cos.petproject.domain.boast;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import com.cos.petproject.domain.user.User;
 
 public interface BoastRepository extends JpaRepository<Boast, Integer>{
 	// 성준
+	//글 작성
+	@Query(value = "INSERT INTO boast(content, counter, title, animalId, userId) VALUES(:content, 0, :title, :animalId, :userId);", nativeQuery = true)
+	void mSave(String content, String title, int animalId, User userId);
 	
 	// 효빈
 	
