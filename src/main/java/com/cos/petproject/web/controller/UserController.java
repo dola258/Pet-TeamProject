@@ -1,11 +1,13 @@
 package com.cos.petproject.web.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -20,6 +22,7 @@ import com.cos.petproject.domain.user.UserRepository;
 import com.cos.petproject.util.MyAlgorithm;
 import com.cos.petproject.util.SHA;
 import com.cos.petproject.util.Script;
+import com.cos.petproject.util.mChkAuthKey;
 import com.cos.petproject.web.dto.user.JoinReqDto;
 
 import lombok.RequiredArgsConstructor;
@@ -59,6 +62,12 @@ public class UserController {
 	@PostMapping("/join")
 	public @ResponseBody String join(@Valid JoinReqDto dto, BindingResult bindingResult ) {
 		
+		AuthEmail authKey = authEmailRepository.mFindAuthKey(dto.getEmail());
+		System.out.println(authKey+"dasfasfadsdf");
+		
+		if(authKey.getAuthKey() != dto.getAuthKey()) {
+			return Script.back("인증번호를 잘못 입력하였습니다.");
+		}
 		
 		// 유효성
 		if(bindingResult.hasErrors()) {
@@ -89,6 +98,7 @@ public class UserController {
 		
 		
 		
+		
 		// 입력받은 비밀번호 해쉬값으로 변경
 		String encPassword = SHA.encrypt(dto.getPassword(), MyAlgorithm.SHA256);
 		// 패스워드를 해쉬패스워드로 저장하려고
@@ -104,6 +114,11 @@ public class UserController {
 		userRepository.save(dto.toEntity());
 		
 		return Script.href("/user/loginForm"); 
+	}
+
+	private void mChkAuthKey(String authKey, String email) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	// 회원정보 수정 기능-------------------------------------------

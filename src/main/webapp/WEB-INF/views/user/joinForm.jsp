@@ -174,8 +174,8 @@ var authkey = null;
 		console.log(document.querySelector("#authCode").value);
 		let AuthEmailReqDto = {
 				authKey: document.querySelector("#authCode").value,
-				email: document.querySelector("#email").value,
-		};
+				email: document.querySelector("#email").value
+		}
 		
 		let response = await fetch("http://localhost:8080/user/email/check", {
 			method: "post",
