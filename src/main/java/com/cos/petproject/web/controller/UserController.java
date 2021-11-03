@@ -34,7 +34,7 @@ public class UserController {
 	private final UserRepository userRepository;
 	private final HttpSession session;
 	private final AuthEmailRepository authEmailRepository;
-
+	private int userId;
 	// 아이디 찾기 기능---------------------------------------
 	@GetMapping("/id/modal")
 	public @ResponseBody String idFind() {
