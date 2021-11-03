@@ -18,7 +18,7 @@
 			</div>
 			<br>
 			<div>
-				<form onsubmit="findPassword(event)">
+				<form onsubmit="pwFInd(event)">
 				<div class="mb-3 mt-3 d-flex justify-content-center ">
 					<div class="d-flex flex-column">
 						<label for="username">아이디</label> 
@@ -84,7 +84,7 @@
 </div>
 
 <script>
-	async function findPassword(event) {
+	async function pwFInd(event) {
 		event.preventDefault();
 
 		$("#pwdFindModal").modal('show');

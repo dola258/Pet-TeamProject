@@ -22,7 +22,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	
 	
 	// 재영
-	
+	@Query(value = "select * from user where username = :username and name = :name and birth = :birth and email = :email", nativeQuery = true)
+	User mPWFind(String username, String name, String birth, String email);
 	
 	// 효빈
 	@Query(value = "select username from user where username = :username", nativeQuery = true)
