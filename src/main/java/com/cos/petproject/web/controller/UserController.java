@@ -166,10 +166,10 @@ public class UserController {
 
 	// 유저 관련 페이지 불러오기(GetMapping)
 	@GetMapping("/logout")
-	   public String logout() {
-	      session.invalidate();
-	      return "/";
-	   }
+	public String logout() {
+	   session.invalidate();
+	   return "redirect:/";
+	}
 
 	@GetMapping("user/loginForm")
 	public String userLoginForm() {
