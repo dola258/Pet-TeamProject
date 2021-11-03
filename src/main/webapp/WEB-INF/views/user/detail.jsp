@@ -16,37 +16,37 @@
 		<div class="inner-containers">
 		<div class="form-group">
 			<label for="uname">아이디</label> 
-			<input type="text" class="form-control inputs" id="uname" name="uname" readonly>
+			<input type="text" class="form-control inputs" id="uname" name="uname" value="${principal.username }" readonly>
 		</div>
 		<br>
 		<div class="form-group">
 			<label for="pwd">이름</label> 
-			<input type="text" class="form-control inputs" id="name" name="name" readonly>
+			<input type="text" class="form-control inputs" id="name" name="name" value="${principal.name }" readonly>
 		</div>
 		<br>
 		<div class="form-group">
 			<label for="nick">닉네임</label> 
-			<input type="text" class="form-control inputs" id="nick" name="nick" readonly>
+			<input type="text" class="form-control inputs" id="nick" name="nick" value="${principal.nickname }" readonly>
 		</div>
 		<br>
 		<div class="form-group">
 			<label for="pwd">전화번호</label> 
-			<input type="text" class="form-control inputs"	id="phone" name="phone" readonly>
+			<input type="text" class="form-control inputs"	id="phone" name="phone" value="${principal.phone }" readonly>
 		</div>
 		<br>
 		<div class="form-group">
 			<label for="email">이메일</label> 
-			<input type="email" class="form-control inputs" id="email" name="email" readonly>
+			<input type="email" class="form-control inputs" id="email" name="email" value="${principal.email }" readonly>
 		</div>
 		<br> 
 		<div class="form-group">
 			<label for="gender">성별</label> 
-			<input type="text" class="form-control inputs" id="gender" name="gender" readonly>
+			<input type="text" class="form-control inputs" id="gender" name="gender" value="${principal.gender }" readonly>
 		</div>
 		<br>
 		<div class="form-group">
 			<label for="birth">생넌월일</label> 
-			<input type="text" class="form-control inputs" id="birth" name="birth"  readonly>
+			<input type="text" class="form-control inputs" id="birth" name="birth" value="${principal.birth }" readonly>
 		</div>
 		<br>
 		<div class="d-flex justify-content-around">
