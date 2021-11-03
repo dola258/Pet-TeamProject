@@ -27,7 +27,7 @@
 
 	<nav class="navbar navbar-expand-sm bg-success navbar-dark ">
 		<div class="container-fluid">
-			<a class="navbar-brand d-flex justify-content-center" href="#"
+			<a class="navbar-brand d-flex justify-content-center" href="/"
 				style="text-align: right;"><img src="/header/logo.png"
 				style="float: left; height: 35px">
 				<h2>댕냥이천국</h2></a>
@@ -37,17 +37,17 @@
 						class="nav-link dropdown-toggle" href="#" role="button"
 						data-bs-toggle="dropdown">댕댕이</a>
 						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="#">QnA</a></li>
-							<li><a class="dropdown-item" href="#">자랑하기</a></li>
-							<li><a class="dropdown-item" href="#">꿀팁</a></li>
+							<li><a class="dropdown-item" href="/2/qna">QnA</a></li>
+							<li><a class="dropdown-item" href="/2/boast">자랑하기</a></li>
+							<li><a class="dropdown-item" href="/2/tip">꿀팁</a></li>
 						</ul></li>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" role="button"
 						data-bs-toggle="dropdown">냐옹이</a>
 						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="#">QnA</a></li>
-							<li><a class="dropdown-item" href="#">자랑하기</a></li>
-							<li><a class="dropdown-item" href="#">꿀팁</a></li>
+							<li><a class="dropdown-item" href="/1/qna">QnA</a></li>
+							<li><a class="dropdown-item" href="/1/boast">자랑하기</a></li>
+							<li><a class="dropdown-item" href="/1/tip">꿀팁</a></li>
 						</ul></li>
 				</ul>
 			</div>
@@ -58,8 +58,8 @@
 				<c:choose>
 					<c:when test="${empty sessionScope.princlpal}">
 						<ul class="navbar-nav justify-content-end">
-							<li class="nav-item"><a class="nav-link" href="/loginForm">로그인</a></li>
-							<li class="nav-item"><a class="nav-link" href="/joinForm">회원가입</a></li>
+							<li class="nav-item"><a class="nav-link" href="/user/loginForm">로그인</a></li>
+							<li class="nav-item"><a class="nav-link" href="/user/joinForm">회원가입</a></li>
 							<li class="nav-item"><a class="nav-link" href="/notice">공지사항</a></li>
 						</ul>
 					</c:when>
@@ -68,7 +68,7 @@
 							<c:when test="${sessionScope.principal.authority eq 'admin'}">
 								<ul class="navbar-nav justify-content-end">
 									<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
-									<li class="nav-item"><a class="nav-link" href="detail/${sessionScope.principal.id }">내정보</a></li>
+									<li class="nav-item"><a class="nav-link" href="/user/detail/${sessionScope.principal.id }">내정보</a></li>
 									<li class="nav-item"><a class="nav-link" href="/notice">공지사항</a></li>
 									<li class="nav-item"><a class="nav-link" href="/admin/home">관리자페이지</a></li>
 								</ul>
@@ -76,7 +76,7 @@
 							<c:otherwise>
 								<ul class="navbar-nav justify-content-end">
 									<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
-									<li class="nav-item"><a class="nav-link" href="detail/${sessionScope.principal.id }">내정보</a></li>
+									<li class="nav-item"><a class="nav-link" href="/user/detail/${sessionScope.principal.id }">내정보</a></li>
 									<li class="nav-item"><a class="nav-link" href="/notice">공지사항</a></li>
 								</ul>
 							</c:otherwise>

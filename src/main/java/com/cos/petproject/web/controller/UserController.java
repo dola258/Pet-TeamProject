@@ -14,15 +14,20 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cos.petproject.domain.authMail.AuthEmail;
 import com.cos.petproject.domain.authMail.AuthEmailRepository;
+import com.cos.petproject.domain.user.User;
 import com.cos.petproject.domain.user.UserRepository;
 import com.cos.petproject.util.MyAlgorithm;
 import com.cos.petproject.util.SHA;
 import com.cos.petproject.util.Script;
 import com.cos.petproject.util.mChkAuthKey;
+import com.cos.petproject.web.dto.CMRespDto;
+import com.cos.petproject.web.dto.user.ChangePwDto;
+import com.cos.petproject.web.dto.user.FindPwReqDto;
 import com.cos.petproject.web.dto.user.JoinReqDto;
 
 import lombok.RequiredArgsConstructor;
@@ -42,13 +47,26 @@ public class UserController {
 	}
 	
 	// 비밀번호 변경 기능 ------------------------------------
-	@GetMapping("/pw/modal")
-	public @ResponseBody String pwFind() {
-		return "/";
+	@PostMapping("/pw/modal")
+	public @ResponseBody CMRespDto<String> pwFind(@RequestBody @Valid FindPwReqDto dto) {
+		User userEntity = userRepository.mPWFind(dto.getUsername(), dto.getName(),dto.getBirth(),dto.getEmail());
+		userId = userEntity.getId();
+	
+		if(userEntity == null ) {
+			return new CMRespDto<>(0, "존재하지 않는 회원입니다", null);
+		} else {
+			return new CMRespDto<>(1, "성공", null);
+		}			
 	}
+	
 	@PutMapping("/pw/change")
-	public @ResponseBody String pwChange() {
-		return "/";
+	public @ResponseBody CMRespDto<String> pwChange(@RequestBody ChangePwDto dto) {
+		System.out.println(userId);
+		System.out.println(dto.getPassword());
+		
+		User userEntity = userRepository.mPwChange(userId, dto.getPassword());
+		
+		return new CMRespDto<>(1, "비번 변경 완료", null);
 	}
 
 	// 로그인 기능--------------------------------------------
@@ -164,7 +182,7 @@ public class UserController {
 		return "user/idFind";
 	}
 
-	@GetMapping("/user/pwfind")
+	@GetMapping("/user/pwFind")
 	public String userPwFind() {
 
 		return "user/pwFind";
