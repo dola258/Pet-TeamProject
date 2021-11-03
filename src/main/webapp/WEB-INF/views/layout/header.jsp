@@ -56,7 +56,7 @@
 
 
 				<c:choose>
-					<c:when test="${empty sessionScope.princlpal}">
+					<c:when test="${empty sessionScope.principal}">
 						<ul class="navbar-nav justify-content-end">
 							<li class="nav-item"><a class="nav-link" href="/user/loginForm">로그인</a></li>
 							<li class="nav-item"><a class="nav-link" href="/user/joinForm">회원가입</a></li>

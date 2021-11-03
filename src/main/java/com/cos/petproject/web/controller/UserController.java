@@ -18,12 +18,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cos.petproject.domain.authMail.AuthEmail;
 import com.cos.petproject.domain.authMail.AuthEmailRepository;
+import com.cos.petproject.domain.user.User;
 import com.cos.petproject.domain.user.UserRepository;
 import com.cos.petproject.util.MyAlgorithm;
 import com.cos.petproject.util.SHA;
 import com.cos.petproject.util.Script;
 import com.cos.petproject.util.mChkAuthKey;
 import com.cos.petproject.web.dto.user.JoinReqDto;
+import com.cos.petproject.web.dto.user.LoginReqDto;
 
 import lombok.RequiredArgsConstructor;
 
@@ -53,11 +55,37 @@ public class UserController {
 
 	// 로그인 기능--------------------------------------------
 	@PostMapping("/login")
-	public @ResponseBody String login() {
+	public @ResponseBody String login(@Valid LoginReqDto dto, BindingResult bindingResult) {
+        
+        // username password 
+        
+           System.out.println(dto.getUsername());
+           System.out.println(dto.getPassword());
+        
+           // validation
+           System.out.println("에러사이즈: " + bindingResult.getFieldErrors().size());
+           if(bindingResult.hasErrors()) { 
+              Map<String, String> errorMap = new HashMap<>();
+              for(FieldError error : bindingResult.getFieldErrors()) {
+              errorMap.put(error.getField(), error.getDefaultMessage());
+           System.out.println("필드: " + error.getField());
+              System.out.println("메시지: " + error.getDefaultMessage());
+              }
+           return Script.back(errorMap.toString());
+           }
+      String encPassword = SHA.encrypt(dto.getPassword(), MyAlgorithm.SHA256);
+      dto.setPassword(encPassword);
 
-		return "/";
-	}
+  // db
+     User userEntity = userRepository.mLogin(dto.getUsername(), dto.getPassword());
+     if(userEntity == null) {
+     return Script.back("아이디 혹은 비밀번호를 잘못 입력하였습니다");
+     }else {
+     session.setAttribute("principal", userEntity); 
+     return Script.href("/","로그인 완료");
+           }
 
+     }
 	// 회원가입 기능 --------------------------------------------
 	@PostMapping("/join")
 	public @ResponseBody String join(@Valid JoinReqDto dto, BindingResult bindingResult ) {
@@ -129,10 +157,10 @@ public class UserController {
 
 	// 유저 관련 페이지 불러오기(GetMapping)
 	@GetMapping("/logout")
-	public String logout() {
-		session.invalidate();
-		return "/";
-	}
+	   public String logout() {
+	      session.invalidate();
+	      return "/";
+	   }
 
 	@GetMapping("user/loginForm")
 	public String userLoginForm() {
