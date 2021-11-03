@@ -1,13 +1,11 @@
 package com.cos.petproject.web.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import org.springframework.data.jpa.repository.Query;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -17,14 +15,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cos.petproject.domain.authMail.AuthEmail;
 import com.cos.petproject.domain.authMail.AuthEmailRepository;
 import com.cos.petproject.domain.user.User;
 import com.cos.petproject.domain.user.UserRepository;
 import com.cos.petproject.util.MyAlgorithm;
 import com.cos.petproject.util.SHA;
 import com.cos.petproject.util.Script;
-import com.cos.petproject.util.mChkAuthKey;
 import com.cos.petproject.web.dto.CMRespDto;
 import com.cos.petproject.web.dto.user.ChangePwDto;
 import com.cos.petproject.web.dto.user.FindPwReqDto;
@@ -40,7 +36,10 @@ public class UserController {
 	private final UserRepository userRepository;
 	private final HttpSession session;
 	private final AuthEmailRepository authEmailRepository;
+	
 	private int userId;
+	
+	
 	// 아이디 찾기 기능---------------------------------------
 	@GetMapping("/id/modal")
 	public @ResponseBody String idFind() {
@@ -74,7 +73,7 @@ public class UserController {
 	@PostMapping("/login")
 	public @ResponseBody String login(@Valid LoginReqDto dto, BindingResult bindingResult) {
         
-        // username password 
+		// username password 
         
            System.out.println(dto.getUsername());
            System.out.println(dto.getPassword());
@@ -93,24 +92,24 @@ public class UserController {
       String encPassword = SHA.encrypt(dto.getPassword(), MyAlgorithm.SHA256);
       dto.setPassword(encPassword);
 
-  // db
-     User userEntity = userRepository.mLogin(dto.getUsername(), dto.getPassword());
-     if(userEntity == null) {
-     return Script.back("아이디 혹은 비밀번호를 잘못 입력하였습니다");
-     }else {
-     session.setAttribute("principal", userEntity); 
-     return Script.href("/","로그인 완료");
-           }
+      // db
+      User userEntity = userRepository.mLogin(dto.getUsername(), dto.getPassword());
+      if(userEntity == null) {
+    	  	return Script.back("아이디 혹은 비밀번호를 잘못 입력하였습니다");
+      }else {
+    	  	session.setAttribute("principal", userEntity); 
+    	  	return Script.href("/","로그인 완료");
+      }
 
      }
 	// 회원가입 기능 --------------------------------------------
 	@PostMapping("/join")
 	public @ResponseBody String join(@Valid JoinReqDto dto, BindingResult bindingResult ) {
 		
-		AuthEmail authKey = authEmailRepository.mFindAuthKey(dto.getEmail());
+		String authKey = authEmailRepository.mFindAuthKey(dto.getAuthKey());
 		System.out.println(authKey+"dasfasfadsdf");
 		
-		if(authKey.getAuthKey() != dto.getAuthKey()) {
+		if(authKey==dto.getAuthKey()) {
 			return Script.back("인증번호를 잘못 입력하였습니다.");
 		}
 		
@@ -139,10 +138,6 @@ public class UserController {
 		if(phoneCheck != null) {
 			return Script.back("존재하는 전화번호입니다");
 		}
-			
-		
-		
-		
 		
 		// 입력받은 비밀번호 해쉬값으로 변경
 		String encPassword = SHA.encrypt(dto.getPassword(), MyAlgorithm.SHA256);
@@ -161,10 +156,7 @@ public class UserController {
 		return Script.href("/user/loginForm"); 
 	}
 
-	private void mChkAuthKey(String authKey, String email) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	// 회원정보 수정 기능-------------------------------------------
 	@PutMapping("/user/{id}")

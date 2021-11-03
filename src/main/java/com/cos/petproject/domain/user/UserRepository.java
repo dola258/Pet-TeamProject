@@ -33,8 +33,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query(value = "select email from user where email = :email", nativeQuery = true)
 	String mEmailCheck(String email);
 	// DB에 저장된 인증키불러오기 - 회원가입 클릭했을때 적은 인증키로 찾아보기
-	@Query(value = "select * from authemail where authKey = :authKey", nativeQuery = true)
-	AuthEmail mFindAuthKey(String authKey);
+	@Query(value = "SELECT DISTINCT authKey from authemail where authKey = :authKey", nativeQuery = true)
+	String mFindAuthKey(String authKey);
 
 	// 주원
 	

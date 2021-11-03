@@ -24,5 +24,5 @@ public interface AuthEmailRepository extends JpaRepository<AuthEmail, Integer> {
 	
 	// DB에 저장된 인증키불러오기 - 회원가입 클릭했을때 적은 인증키로 찾아보기
 	@Query(value = "select * from authemail where email = :email", nativeQuery = true)
-	AuthEmail mFindAuthKey(String email);
+	String mFindAuthKey(String email);
 }
