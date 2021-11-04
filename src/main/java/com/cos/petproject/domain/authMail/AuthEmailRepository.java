@@ -18,10 +18,6 @@ public interface AuthEmailRepository extends JpaRepository<AuthEmail, Integer> {
 	@Query(value = "Update AuthEmail Set authKey = :authKey Where email = :email", nativeQuery = true)
 	AuthEmail mUpdateAuthKey(String authKey, String email);
 	
-	// 인증 번호 비교시 사용할 쿼리, 들고온 인증키와 이메일을 조건으로 셀렉트
-	@Query(value = "SELECT * FROM authemail GROUP BY email having email = :email and authKey = :authKey", nativeQuery = true)
-	Optional<List<mChkAuthKey>> mChkAuthKey(String authKey, String email);
-	
 	// DB에 저장된 인증키불러오기 - 회원가입 클릭했을때 적은 인증키로 찾아보기
 	@Query(value = "select DISTINCT authKey from authemail where email = :email", nativeQuery = true)
 	String mFindAuthKey(String email);

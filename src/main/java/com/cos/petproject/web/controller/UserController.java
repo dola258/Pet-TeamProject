@@ -180,7 +180,10 @@ public class UserController {
 		return Script.href("/user/loginForm"); 
 	}
 
-
+	@GetMapping("/map")
+	public String map() {
+		return "/map/map";
+	}
 
 	// 회원정보 수정 기능-------------------------------------------
 	@PutMapping("/api/user/{id}")
