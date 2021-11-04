@@ -1,5 +1,7 @@
 package com.cos.petproject.web.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -101,7 +103,7 @@ public class BoastController {
 	
 	// 댓글작성 기능---------------------------------
 	@PostMapping("/{animalId}/boast/{id}/comment")
-	public @ResponseBody String commentSave(@PathVariable int animalId, @PathVariable int id, @Valid CommentSaveReqDto dto, BindingResult bindingResult) {
+	public @ResponseBody String commentSave(@PathVariable int animalId, @PathVariable int id, @Valid CommentSaveReqDto dto, BindingResult bindingResult, Model model) {
 		
 		// 세션 가져오기
 		User principal = (User) session.getAttribute("principal");
@@ -119,7 +121,7 @@ public class BoastController {
 				System.out.println("필드: " + error.getField());
 				System.out.println("메시지: " + error.getDefaultMessage());
 			}
-			return Script.back("댓글을 입력해주세요.");
+			return Script.back(errorMap.toString());
 		}
 		
 		// 게시글을 아이디를 조건으로 조회
@@ -189,8 +191,13 @@ public class BoastController {
 		Boast boastEntity = boastRepository.findById(id).
 				orElseThrow(()-> new MyNotFoundException(id + " 페이지를 찾을 수 없습니다."));
 		
+		// 날짜변환
+		LocalDateTime boardCreatedAt = boastEntity.getCreatedAt();
+		String parseCreatedAt = boardCreatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+		
 		// 모델에 담기
 		model.addAttribute("boastEntity", boastEntity);
+		model.addAttribute("parseCreatedAt", parseCreatedAt);
 		
 		if(animalId == 1) {
 			return "cat/boast/detail";
