@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.cos.petproject.domain.boast.Boast;
 import com.cos.petproject.domain.boast.BoastRepository;
@@ -25,6 +26,7 @@ import com.cos.petproject.domain.comment.Comment;
 import com.cos.petproject.domain.comment.CommentRepository;
 import com.cos.petproject.domain.user.User;
 import com.cos.petproject.handler.exception.MyNotFoundException;
+import com.cos.petproject.handler.exception.MyAsyncNotFoundException;
 import com.cos.petproject.util.Script;
 import com.cos.petproject.web.dto.CommentSaveReqDto;
 import com.cos.petproject.web.dto.board.BoastSaveReqDto;
@@ -79,14 +81,41 @@ public class BoastController {
 	
 	// 글수정 기능---------------------------------
 	@PutMapping("/{animalId}/boast/{id}")
-	public String update(@PathVariable int animalId, @PathVariable int id) {
-		if(animalId == 1) {
-			return "redirect:/"+animalId+"/boast/"+id;
-		} else if(animalId == 2){
-			return "redirect:/"+animalId+"/boast/"+id;
-		} else {
-			return "redirect:/main";
-		}
+	public String update(@PathVariable int animalId, @PathVariable int id, @RequestBody @Valid BoastSaveReqDto dto, BindingResult bindingResult) {
+		
+		//유효성 검사(공통로직)
+				if (bindingResult.hasErrors()) {
+					Map<String, String> errorMap = new HashMap<>();
+					for (FieldError error : bindingResult.getFieldErrors()) {
+						errorMap.put(error.getField(), error.getDefaultMessage());
+					}
+					throw new MyAsyncNotFoundException(errorMap.toString());
+				}
+
+				//인증
+				User principal = (User) session.getAttribute("principal");
+				if(principal == null) {
+					throw new MyAsyncNotFoundException("인증이 되지 않았습니다.");
+				}
+				Boast boardEntity = boastRepository.findById(id)
+						.orElseThrow(()->new MyAsyncNotFoundException("해당 게실글을 찾을 수 없습니다"));
+				
+				if(principal.getId() != boardEntity.getUser().getId()) {
+					throw new MyAsyncNotFoundException("해달 게시물의 권한이 없습니다");
+				}
+				
+				Boast board = dto.toEntity(principal);
+				board.setUser(principal);
+				board.setId(id);
+				boastRepository.save(board);			
+				
+				if(animalId == 1) {
+					return "redirect:/"+animalId+"/boast/"+id;
+				} else if(animalId == 2){
+					return "redirect:/"+animalId+"/boast/"+id;
+				} else {
+					return "redirect:/main";
+				}
 	}
 	
 	// 글삭제 기능---------------------------------

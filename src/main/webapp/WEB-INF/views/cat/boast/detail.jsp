@@ -18,7 +18,7 @@
 						<button type="button" class="btn dropdown-toggle"
 							data-bs-toggle="dropdown">더보기</button>
 						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="#">수정하기</a></li>
+							<li><a class="dropdown-item" href="/1/boast/${boastEntity.id}/updateForm">수정하기</a></li>
 							<li><a class="dropdown-item" href="#">삭제하기</a></li>
 						</ul>
 					</div>

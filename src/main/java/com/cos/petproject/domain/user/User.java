@@ -41,10 +41,5 @@ public class User {
 	private String authority;// 권한
 	
 
-	private LocalDateTime createdAt;
 
-	@PrePersist // 디비에 INSERT 되기 직전에 실행
-	public void createdAt() {
-		this.createdAt = LocalDateTime.now();
-	}
 }
