@@ -18,12 +18,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.cos.petproject.domain.authMail.AuthEmailRepository;
 import com.cos.petproject.domain.user.User;
 import com.cos.petproject.domain.user.UserRepository;
+import com.cos.petproject.handler.exception.MyAsyncNotFoundException;
 import com.cos.petproject.util.MyAlgorithm;
 import com.cos.petproject.util.SHA;
 import com.cos.petproject.util.Script;
 import com.cos.petproject.web.dto.CMRespDto;
 import com.cos.petproject.web.dto.user.ChangePwDto;
 import com.cos.petproject.web.dto.user.FindPwReqDto;
+import com.cos.petproject.web.dto.user.IdFindDto;
 import com.cos.petproject.web.dto.user.JoinReqDto;
 import com.cos.petproject.web.dto.user.LoginReqDto;
 
@@ -41,9 +43,27 @@ public class UserController {
 	
 	
 	// 아이디 찾기 기능---------------------------------------
-	@GetMapping("/id/modal")
-	public @ResponseBody String idFind() {
-		return "/";
+	@PostMapping("/id/modal")
+	public @ResponseBody CMRespDto<String> idFind(@Valid @RequestBody IdFindDto dto, BindingResult bindingResult) {
+		
+		// 유효성
+		if(bindingResult.hasErrors()) {
+			Map<String, String> errorMap = new HashMap<>();
+			for(FieldError error : bindingResult.getFieldErrors()) {
+				errorMap.put(error.getField(), error.getDefaultMessage());
+				System.out.println("필드 : " + error.getField());
+				System.out.println("메세지 : " + error.getDefaultMessage());
+			}
+			throw new MyAsyncNotFoundException(errorMap.toString());
+		}
+		
+		User userEntity = userRepository.mIdFind(dto.getName(), dto.getBirth(), dto.getEmail());
+		
+		if(userEntity == null) {
+			throw new MyAsyncNotFoundException("입력한 정보가 일치하지 않아 아이디를 찾을 수 없습니다.");
+		}
+		
+		return new CMRespDto<String>(1, "성공", userEntity.getUsername());
 	}
 	
 	// 비밀번호 변경 기능 ------------------------------------

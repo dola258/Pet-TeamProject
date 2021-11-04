@@ -12,7 +12,7 @@
 		<div class="d-flex flex-column inner-container">
 			<div>
 				<button type="button" class="btn btn-outline-success active" data-bs-toggle="button" aria-pressed="true" onclick="location.href='/user/idFind'">아이디 찾기</button>
-				<button type="button" class="btn btn-outline-warning" onclick="location.href='/user/pwfind'">비밀번호 변경</button>
+				<button type="button" class="btn btn-outline-warning" onclick="location.href='/user/pwFind'">비밀번호 변경</button>
 				<div class="border border-success"></div>
 			</div>
 			<div>
