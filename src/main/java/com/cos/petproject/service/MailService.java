@@ -15,7 +15,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class MailService {
 	private JavaMailSender mailSender;
-    private static final String FROM_ADDRESS = "hyopin258@gamil.com";
+    private static final String FROM_ADDRESS = "greenpetproject@gamil.com";
 	
 	// 인증메일 보내기
 	public String sendAuthMail(AuthEmailReqDto dto) {
