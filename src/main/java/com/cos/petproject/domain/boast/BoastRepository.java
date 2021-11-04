@@ -10,7 +10,10 @@ public interface BoastRepository extends JpaRepository<Boast, Integer>{
 	//글 작성
 	@Query(value = "INSERT INTO boast(content, counter, title, animalId, userId) VALUES(:content, 0, :title, :animalId, :userId);", nativeQuery = true)
 	void mSave(String content, String title, int animalId, User userId);
-	
+	// 게시판 조회수 증가를 위한 쿼리
+	@Query(value = "Update boast Set counter = counter + 1 where id = :id", nativeQuery = true)
+	void mCounter(int id);
+
 	// 효빈
 	
 	// 재영

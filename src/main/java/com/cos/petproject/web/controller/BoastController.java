@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,11 +15,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cos.petproject.domain.boast.Boast;
 import com.cos.petproject.domain.boast.BoastRepository;
+import com.cos.petproject.domain.comment.Comment;
 import com.cos.petproject.domain.comment.CommentRepository;
 import com.cos.petproject.domain.user.User;
+import com.cos.petproject.handler.exception.MyNotFoundException;
 import com.cos.petproject.util.Script;
+import com.cos.petproject.web.dto.CommentSaveReqDto;
 import com.cos.petproject.web.dto.board.BoastSaveReqDto;
 
 import lombok.RequiredArgsConstructor;
@@ -95,13 +101,46 @@ public class BoastController {
 	
 	// 댓글작성 기능---------------------------------
 	@PostMapping("/{animalId}/boast/{id}/comment")
-	public String commentSave(@PathVariable int animalId, @PathVariable int id) {
+	public @ResponseBody String commentSave(@PathVariable int animalId, @PathVariable int id, @Valid CommentSaveReqDto dto, BindingResult bindingResult) {
+		
+		// 세션 가져오기
+		User principal = (User) session.getAttribute("principal");
+		
+		// 세션이 있는지 검사
+		if (principal == null) {
+			throw new MyNotFoundException("인증이 되지 않았습니다.");
+		}
+
+		// 유효성 검사
+		if (bindingResult.hasErrors()) {
+			Map<String, String> errorMap = new HashMap<>();
+			for (FieldError error : bindingResult.getFieldErrors()) {
+				errorMap.put(error.getField(), error.getDefaultMessage());
+				System.out.println("필드: " + error.getField());
+				System.out.println("메시지: " + error.getDefaultMessage());
+			}
+			return Script.back("댓글을 입력해주세요.");
+		}
+		
+		// 게시글을 아이디를 조건으로 조회
+		Boast boastEntity = boastRepository.findById(id)
+				.orElseThrow(()-> new MyNotFoundException("해당게시글을 찾을 수 없습니다."));
+		
+		// Comment 객체 만들기
+		Comment comment = new Comment();
+		comment.setContent(dto.getContent());
+		comment.setUser(principal);
+		comment.setBoast(boastEntity);
+		
+		// 댓글 save 하기
+		commentRepository.save(comment);
+		
 		if(animalId == 1) {
-			return "redirect:/"+animalId+"/boast/"+id;
+			return Script.href("/"+animalId+"/boast/"+id);
 		} else if(animalId == 2){
-			return "redirect:/"+animalId+"/boast/"+id;
+			return Script.href("/"+animalId+"/boast/"+id);
 		} else {
-			return "redirect:/main";
+			return Script.href("/main");
 		}
 	}
 	
@@ -141,7 +180,17 @@ public class BoastController {
 	}
 	
 	@GetMapping("/{animalId}/boast/{id}")
-	public String detail(@PathVariable int animalId, @PathVariable int id) {
+	public String detail(@PathVariable int animalId, @PathVariable int id, Model model) {
+		
+		// 게시판 조회수 증가
+		boastRepository.mCounter(id);
+		
+		// id로 게시글 찾기
+		Boast boastEntity = boastRepository.findById(id).
+				orElseThrow(()-> new MyNotFoundException(id + " 페이지를 찾을 수 없습니다."));
+		
+		// 모델에 담기
+		model.addAttribute("boastEntity", boastEntity);
 		
 		if(animalId == 1) {
 			return "cat/boast/detail";
