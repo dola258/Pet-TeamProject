@@ -1,5 +1,6 @@
 package com.cos.petproject.domain.notice;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 
 import com.cos.petproject.domain.user.User;
 
@@ -34,5 +36,12 @@ public class Notice {
 	@JoinColumn(name = "userId")
 	@ManyToOne
 	private User user;
+	
+	private LocalDateTime createdAt;
+
+	@PrePersist // 디비에 INSERT 되기 직전에 실행
+	public void createdAt() {
+		this.createdAt = LocalDateTime.now();
+	}
 		
 }

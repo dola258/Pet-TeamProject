@@ -12,7 +12,7 @@
 	<h2>회원정보</h2>
 </div>
 <div class="container">
-	<form action="" method="">
+	<form action="/user/updateForm" method="get">
 		<div class="inner-containers">
 		<div class="form-group">
 			<label for="uname">아이디</label> 

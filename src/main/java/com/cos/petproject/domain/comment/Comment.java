@@ -1,5 +1,7 @@
 package com.cos.petproject.domain.comment;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 
 import com.cos.petproject.domain.boast.Boast;
 import com.cos.petproject.domain.qna.Qna;
@@ -45,6 +48,12 @@ public class Comment {
 	@ManyToOne
 	private Tip tip; 
 	
+	private LocalDateTime createdAt;
+
+	@PrePersist // 디비에 INSERT 되기 직전에 실행
+	public void createdAt() {
+		this.createdAt = LocalDateTime.now();
+	}
 	
 
 }

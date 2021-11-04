@@ -19,7 +19,7 @@
 			<br />
 			<div class="d-flex justify-content-end">
 				<button type="submit" class="btn btn-success" >글수정</button>
-				<button type="button" class="btn btn-secondary btn-cancel" onclick="location.href='#'">취소</button>
+				<button type="button" class="btn btn-secondary btn-cancel" onclick="location.href='/1/boast'">취소</button>
 			</div>
 		</div>
 	</form>

@@ -1,5 +1,6 @@
 package com.cos.petproject.domain.tip;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -13,6 +14,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
+import javax.persistence.PrePersist;
 
 import com.cos.petproject.domain.animal.Animal;
 import com.cos.petproject.domain.comment.Comment;
@@ -54,5 +56,11 @@ public class Tip {
 	@OneToMany(mappedBy = "tip", fetch = FetchType.LAZY)
 	@OrderBy("id desc")
 	private List<Comment> comments;
-	
+
+	private LocalDateTime createdAt;
+
+	@PrePersist // 디비에 INSERT 되기 직전에 실행
+	public void createdAt() {
+		this.createdAt = LocalDateTime.now();
+	}
 }

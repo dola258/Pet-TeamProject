@@ -1,10 +1,13 @@
 package com.cos.petproject.domain.user;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,4 +39,12 @@ public class User {
 	private String birth;    // 생년월일
 	@Column(nullable = false, length = 5)
 	private String authority;// 권한
+	
+
+	private LocalDateTime createdAt;
+
+	@PrePersist // 디비에 INSERT 되기 직전에 실행
+	public void createdAt() {
+		this.createdAt = LocalDateTime.now();
+	}
 }
