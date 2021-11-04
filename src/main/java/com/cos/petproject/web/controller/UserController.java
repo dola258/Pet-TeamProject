@@ -84,6 +84,8 @@ public class UserController {
 		System.out.println(userId);
 		System.out.println(dto.getPassword());
 		
+		String encPassword = SHA.encrypt(dto.getPassword(), MyAlgorithm.SHA256);
+		dto.setPassword(encPassword);
 		User userEntity = userRepository.mPwChange(userId, dto.getPassword());
 		
 		return new CMRespDto<>(1, "비번 변경 완료", null);
