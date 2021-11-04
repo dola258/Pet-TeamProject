@@ -23,4 +23,7 @@ public class UserUpdateDto {
 	@Size(min = 10, max = 11)
 	@NotBlank
 	private String phone;
+	@Size(min = 6)
+	@NotBlank
+	private String authKey;
 }

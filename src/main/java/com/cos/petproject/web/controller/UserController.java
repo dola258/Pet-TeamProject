@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,6 +27,7 @@ import com.cos.petproject.web.dto.user.ChangePwDto;
 import com.cos.petproject.web.dto.user.FindPwReqDto;
 import com.cos.petproject.web.dto.user.JoinReqDto;
 import com.cos.petproject.web.dto.user.LoginReqDto;
+import com.cos.petproject.web.dto.user.UserUpdateDto;
 
 import lombok.RequiredArgsConstructor;
 
@@ -159,9 +161,31 @@ public class UserController {
 
 
 	// 회원정보 수정 기능-------------------------------------------
-	@PutMapping("/user/{id}")
-	public @ResponseBody String update() {
-		return "/user/detail";
+	@PutMapping("/api/user/{id}")
+	public @ResponseBody CMRespDto<String> update(@PathVariable int id, @RequestBody UserUpdateDto dto) {
+		
+		System.out.println("나 때려짐???");
+
+		String authKey = authEmailRepository.mFindAuthKey(dto.getEmail());
+		
+		if(!authKey.equals(dto.getAuthKey())) { 
+			return new CMRespDto<>(0, "인증번호를 잘못 입력하였습니다." , null);
+		}
+		
+		User userEntity = (User) session.getAttribute("principal");
+	
+		userEntity.setEmail(dto.getEmail());
+		userEntity.setNickname(dto.getNickname());
+		userEntity.setPhone(dto.getPhone());
+		userEntity.setPassword(SHA.encrypt(dto.getPassword(), MyAlgorithm.SHA256));
+		
+		
+		session.setAttribute("principal", userEntity); // 세션 값 변경
+		
+		userRepository.save(userEntity);
+
+		return new CMRespDto<>(1, "성공", null);
+
 	}
 
 	// 유저 관련 페이지 불러오기(GetMapping)
