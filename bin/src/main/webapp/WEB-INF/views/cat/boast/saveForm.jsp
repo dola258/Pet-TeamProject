@@ -10,16 +10,16 @@
 <div class="container">
 	<h1>고양이/자랑하기/글작성</h1>
 	<h1>자랑하기</h1>
-	<form action="" >
+	<form action="/1/boast" method="post" >
 		<div class="mt-4 p-5 bg-light text-white rounded">
-			<input type="text" class="form-control" placeholder="제목을 입력하세요.">
+			<input type="text" class="form-control" name="title" placeholder="제목을 입력하세요.">
 			<hr class="bg-dark">
-			<textarea id="summernote" class="form-control" rows="10" placeholder="내용을 입력하세요." ></textarea>
+			<textarea id="summernote" name="content" class="form-control" rows="10" placeholder="내용을 입력하세요." ></textarea>
 			<hr class="bg-dark">
 			<br />
 			<div class="d-flex justify-content-end">
 				<button type="submit" class="btn btn-success" >글작성</button>
-				<button type="button" class="btn btn-secondary btn-cancel" onclick="location.href='#'">취소</button>
+				<button type="button" class="btn btn-secondary btn-cancel" onclick="location.href='/1/boast'">취소</button>
 			</div>
 		</div>
 	</form>
