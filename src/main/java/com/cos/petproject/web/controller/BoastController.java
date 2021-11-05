@@ -71,9 +71,9 @@ public class BoastController {
 	      boastRepository.mSave(dto.getContent(), dto.getTitle(), animalId, principal);
 	      
 	      if(animalId == 1) {
-	         return "redirect:/"+animalId+"/boast";
+	         return "redirect:/"+animalId+"/boast?page=0";
 	      } else if(animalId == 2){
-	         return "redirect:/"+animalId+"/boast";
+	         return "redirect:/"+animalId+"/boast?page=0";
 	      } else {
 	         return "redirect:/main";
 	      }
