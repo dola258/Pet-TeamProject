@@ -119,16 +119,14 @@ public class BoastController {
 	}
 	
 	// 글삭제 기능---------------------------------
-	@DeleteMapping("/{animalId}/boast/{id}")
-	public String delete(@PathVariable int animalId, @PathVariable int id) {
-		if(animalId == 1) {
-			return "redirect:/"+animalId+"/boast";
-		} else if(animalId == 2){
-			return "redirect:/"+animalId+"/boast";
-		} else {
-			return "redirect:/main";
-		}
-	}
+	@DeleteMapping("/boast/{id}")
+	public @ResponseBody String delete(@PathVariable int id) {
+
+		boastRepository.mdeleteById(id);
+		return "ok"; // @ResponseBody -> 데이터리턴!! (String = text/plain)
+	}	
+		
+
 	
 	// 댓글작성 기능---------------------------------
 	@PostMapping("/{animalId}/boast/{id}/comment")
