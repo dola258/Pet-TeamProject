@@ -19,7 +19,7 @@
 							data-bs-toggle="dropdown">더보기</button>
 						<ul class="dropdown-menu">
 							<li><a class="dropdown-item" href="/1/boast/${boastEntity.id}/updateForm">수정하기</a></li>
-							<li><a class="dropdown-item" href="#">삭제하기</a></li>
+							<li><a class="dropdown-item" onclick="deleteById(${boastEntity.id})">삭제하기</a></li>
 						</ul>
 					</div>
 				</div>
@@ -73,6 +73,25 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	async function deleteById(id) {
+	
+		// 1. 비동기 함수 호출
+		let response = await fetch("/boast/"+id, {
+			method: "delete"
+		});
+		
+		// 2. 코드
+		let parseResponse = await response.text();
+		console.log(parseResponse);
+		
+		alert("삭제성공");
+		location.href= "/1/boast?page=0";
+		
+	
+	}
+</script>
 
 
 <%@ include file="../../layout/footer.jsp"%>
