@@ -43,13 +43,13 @@ public class BoastController {
 	
 	// 글작성 기능---------------------------------
 	   @PostMapping("/{animalId}/boast")
-	   public String save(@PathVariable int animalId, @Valid BoastSaveReqDto dto, BindingResult bindingResult) {
+	   public @ResponseBody String save(@PathVariable int animalId, @Valid BoastSaveReqDto dto, BindingResult bindingResult) {
 	      	      
 	      User principal = (User) session.getAttribute("principal");
 	      
 	      // 인증
 	      if(principal == null) { // 로그인 안됨
-	         return Script.href("/loginForm", "잘못된 접근입니다");
+	         return Script.href("/user/loginForm", "잘못된 접근입니다");
 	      }
 	      
 	      // 유효성 검사
@@ -70,12 +70,12 @@ public class BoastController {
 	      // 글 작성
 	      boastRepository.mSave(dto.getContent(), dto.getTitle(), animalId, principal);
 	      
-	      if(animalId == 1) {
-	         return "redirect:/"+animalId+"/boast?page=0";
+	      if(animalId == 1) {  
+	         return Script.href("/"+animalId+"/boast?page=0");
 	      } else if(animalId == 2){
-	         return "redirect:/"+animalId+"/boast?page=0";
+	         return Script.href("/"+animalId+"/boast?page=0");
 	      } else {
-	         return "redirect:/main";
+	         return Script.href("/main");
 	      }
 	   }
 	
