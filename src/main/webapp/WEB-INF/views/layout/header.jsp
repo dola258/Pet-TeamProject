@@ -37,17 +37,17 @@
 						class="nav-link dropdown-toggle" href="#" role="button"
 						data-bs-toggle="dropdown">댕댕이</a>
 						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="/2/qna">QnA</a></li>
-							<li><a class="dropdown-item" href="/2/boast">자랑하기</a></li>
-							<li><a class="dropdown-item" href="/2/tip">꿀팁</a></li>
+							<li><a class="dropdown-item" href="/2/qna?page=0">QnA</a></li>
+							<li><a class="dropdown-item" href="/2/boast?page=0">자랑하기</a></li>
+							<li><a class="dropdown-item" href="/2/tip?page=0">꿀팁</a></li>
 						</ul></li>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" role="button"
 						data-bs-toggle="dropdown">냐옹이</a>
 						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="/1/qna">QnA</a></li>
-							<li><a class="dropdown-item" href="/1/boast">자랑하기</a></li>
-							<li><a class="dropdown-item" href="/1/tip">꿀팁</a></li>
+							<li><a class="dropdown-item" href="/1/qna?page=0">QnA</a></li>
+							<li><a class="dropdown-item" href="/1/boast?page=0">자랑하기</a></li>
+							<li><a class="dropdown-item" href="/1/tip?page=0">꿀팁</a></li>
 						</ul></li>
 				</ul>
 			</div>
