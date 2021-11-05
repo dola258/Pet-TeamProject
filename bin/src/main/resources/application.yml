@@ -24,8 +24,8 @@ spring:
   mail: # gmail smtp 설정
     host: smtp.gmail.com
     port: 587
-    username: hyopin258@gmail.com
-    password: dd13486900!00!
+    username: greenpetproject@gmail.com
+    password: a123456789!
     properties:
       mail:
         smtp:

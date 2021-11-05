@@ -14,7 +14,7 @@
 					<div  class="d-flex justify-content-between">
 						<div class="align-self-end">조회수</div>
 						<div>
-							<button type="button" class="btn btn-success" onclick="location.href='#'">글쓰기</button>
+							<button type="button" class="btn btn-success" onclick="location.href='/1/boast/saveForm'">글쓰기</button>
 						</div>
 					</div>
 				</th>

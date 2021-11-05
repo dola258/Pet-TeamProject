@@ -8,6 +8,10 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cos.petproject.domain.boast.Boast;
 import com.cos.petproject.domain.boast.BoastRepository;
@@ -197,16 +202,28 @@ public class BoastController {
 		}
 	}
 	
-	@GetMapping("/{animalId}/boast")
-	public String home(@PathVariable int animalId) {
-		if(animalId == 1) {
-			return "cat/boast/list";
-		} else if(animalId == 2){
-			return "dog/boast/list";
-		} else {
-			return "redirect:/main";
-		}
-	}
+	@GetMapping("{animalId}/boast")
+    public String home(@PathVariable int animalId , @RequestParam int page , Model model) {
+         Pageable pageRequest = PageRequest.of( page, 10, Sort.by("id").descending());
+          Page<Boast> boastEntity = boastRepository.findAll(pageRequest);
+            int pageNumber = boastEntity.getPageable().getPageNumber();
+             int pageBlock = 10; 
+             int startBlockPage = ((pageNumber) / pageBlock) * pageBlock + 1; 
+             int endBlockPage = startBlockPage + pageBlock - 1; 
+
+             model.addAttribute("startBlockPage", startBlockPage);
+             model.addAttribute("endBlockPage", endBlockPage);
+             model.addAttribute("boastEntity", boastEntity);
+
+
+       if(animalId == 1) {
+          return "cat/boast/list";
+       } else if(animalId == 2){
+          return "dog/boast/list";
+       } else {
+          return "redirect:/main";
+       }
+    }
 	
 	@GetMapping("/{animalId}/boast/{id}")
 	public String detail(@PathVariable int animalId, @PathVariable int id, Model model) {
