@@ -15,9 +15,7 @@ public interface BoastRepository extends JpaRepository<Boast, Integer>{
 	void mCounter(int id);
 	
 	// 효빈
-	// 글 삭제
-	@Query(value = "delete from boast where id = :id", nativeQuery = true)
-	void mdeleteById(int id);
+
 	
 	// 재영
 	

@@ -140,7 +140,8 @@ public class BoastController {
 		}
 
 		try {
-			boastRepository.mdeleteById(id); // 오류 발생??? (id가 없으면) 
+			commentRepository.mdeleteById(principal.getId());
+			boastRepository.deleteById(id); // 오류 발생??? (id가 없으면) 
 		} catch (Exception e) {
 			throw new MyAsyncNotFoundException(id+"를 찾을 수 없어서 삭제할 수 없어요.");
 		}
@@ -271,6 +272,7 @@ public class BoastController {
 		model.addAttribute("boastEntity", boastEntity);
 		model.addAttribute("parseCreatedAt", parseCreatedAt);
 		
+	
 		if(animalId == 1) {
 			return "cat/boast/detail";
 		} else if(animalId ==2) {
