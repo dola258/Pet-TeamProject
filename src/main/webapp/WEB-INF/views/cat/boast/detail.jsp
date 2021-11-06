@@ -38,14 +38,14 @@
 			<div class="card-header" style="text-align: center;">댓글 리스트</div>
 			<p></p>
 			<c:forEach var="comment" items="${boastEntity.comments }" >
-				<ul id="reply-box " class="list-group list-group-flush">
+				<ul id="reply-${comment.id}" class="list-group list-group-flush">
 					<li class="list-group-item d-flex justify-content-between list-group-item-dark">
 						<div class="d-flex ">
 							<span class="font-italic">작성자 : ${comment.user.username}</span>&emsp;
 							<div class="font-italic" id="commentCreatedAt"><fmt:parseDate value="${comment.createdAt}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="parsedDateTime" type="both" /><fmt:formatDate pattern="yyyy-MM-dd' 'HH:mm:ss" value="${ parsedDateTime }" /></div>&emsp;
 							<c:if test="${sessionScope.principal.username == comment.user.username}">
 								<button type="button" class="btn btn-secondary btn-sm" id="reply_update-${comment.id}">수정</button>&nbsp;
-								<button type="button" class="btn btn-danger btn-sm" id="reply_delete-${comment.id}">삭제</button>
+								<button type="button" class="btn btn-danger btn-sm" onclick="reply_delete(${comment.id})">삭제</button>
 							</c:if>
 						</div>
 					</li>
@@ -89,6 +89,29 @@
 		if(parseResponse.code == 1) {
 			alert("삭제성공");
 			location.href= "/1/boast?page=0";
+		} else {
+			alert("삭제실패: "+parseResponse.msg);
+		}
+		
+	
+	}
+</script>
+
+<script>
+	async function reply_delete(commentId) {
+	
+		// 1. 비동기 함수 호출
+		let response = await fetch("http://localhost:8080/comment/"+commentId, {
+			method: "delete"
+		});
+		
+		// 2. 코드
+		let parseResponse = await response.json();
+		console.log(parseResponse);
+		
+		if(parseResponse.code == 1) {
+			alert("삭제성공");
+			$("#reply-"+commentId).remove();
 		} else {
 			alert("삭제실패: "+parseResponse.msg);
 		}
