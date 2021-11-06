@@ -78,16 +78,20 @@
 	async function deleteById(id) {
 	
 		// 1. 비동기 함수 호출
-		let response = await fetch("/boast/"+id, {
+		let response = await fetch("http://localhost:8080/boast/"+id, {
 			method: "delete"
 		});
 		
 		// 2. 코드
-		let parseResponse = await response.text();
+		let parseResponse = await response.json();
 		console.log(parseResponse);
 		
-		alert("삭제성공");
-		location.href= "/1/boast?page=0";
+		if(parseResponse.code == 1) {
+			alert("삭제성공");
+			location.href= "/1/boast?page=0";
+		} else {
+			alert("삭제실패: "+parseResponse.msg);
+		}
 		
 	
 	}

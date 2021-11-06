@@ -1,5 +1,7 @@
 package com.cos.petproject.web.dto.board;
 
+import java.time.LocalDateTime;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -19,6 +21,7 @@ public class BoastSaveReqDto {
 	@NotBlank
 	private String title;
 	private String content;
+	private LocalDateTime createdAt;
 	
 	public Boast toEntity(User principal) {
 		Boast boast = new Boast();

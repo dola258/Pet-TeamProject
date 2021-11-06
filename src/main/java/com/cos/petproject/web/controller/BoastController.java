@@ -1,6 +1,6 @@
 package com.cos.petproject.web.controller;
 
-import java.time.LocalDateTime;
+import java.time.LocalDateTime;	
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
@@ -113,6 +113,7 @@ public class BoastController {
 				Boast boast = dto.toEntity(principal);
 				boast.setUser(principal);
 				boast.setId(id);
+				boast.setCreatedAt(LocalDateTime.now());
 				boastRepository.save(boast);			
 				
 				return new CMRespDto<>(1, "업데이트 성공", null);
@@ -121,10 +122,31 @@ public class BoastController {
 	
 	// 글삭제 기능---------------------------------
 	@DeleteMapping("/boast/{id}")
-	public @ResponseBody String delete(@PathVariable int id) {
+	public @ResponseBody CMRespDto<String> delete(@PathVariable int id) {
 
-		boastRepository.mdeleteById(id);
-		return "ok"; // @ResponseBody -> 데이터리턴!! (String = text/plain)
+		System.out.println(id);
+		
+		// 인증이 된 사람만 함수 접근 가능!! (로그인 된 사람)
+		User principal = (User) session.getAttribute("principal");
+		if(principal == null) {
+			throw new MyAsyncNotFoundException("인증이 되지 않았습니다.");
+		}
+
+		// 권한이 있는 사람만 함수 접근 가능(principal.id == {id})
+		Boast boastEntity = boastRepository.findById(id)
+			.orElseThrow(()-> new MyAsyncNotFoundException("해당글을 찾을 수 없습니다."));
+		if(principal.getId() != boastEntity.getUser().getId()) {
+			throw new MyAsyncNotFoundException("해당글을 삭제할 권한이 없습니다.");
+		}
+
+		try {
+			boastRepository.mdeleteById(id); // 오류 발생??? (id가 없으면) 
+		} catch (Exception e) {
+			throw new MyAsyncNotFoundException(id+"를 찾을 수 없어서 삭제할 수 없어요.");
+		}
+
+
+		return new CMRespDto<String>(1, "성공", null); // @ResponseBody 데이터 리턴!! String
 	}	
 		
 
