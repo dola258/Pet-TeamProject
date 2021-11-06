@@ -33,6 +33,7 @@ import com.cos.petproject.domain.user.User;
 import com.cos.petproject.handler.exception.MyNotFoundException;
 import com.cos.petproject.handler.exception.MyAsyncNotFoundException;
 import com.cos.petproject.util.Script;
+import com.cos.petproject.web.dto.CMRespDto;
 import com.cos.petproject.web.dto.CommentSaveReqDto;
 import com.cos.petproject.web.dto.board.BoastSaveReqDto;
 
@@ -86,7 +87,7 @@ public class BoastController {
 	
 	// 글수정 기능---------------------------------
 	@PutMapping("/{animalId}/boast/{id}")
-	public String update(@PathVariable int animalId, @PathVariable int id, @RequestBody @Valid BoastSaveReqDto dto, BindingResult bindingResult) {
+	public @ResponseBody CMRespDto<String> update(@PathVariable int animalId, @PathVariable int id, @RequestBody @Valid BoastSaveReqDto dto, BindingResult bindingResult) {
 		
 		//유효성 검사(공통로직)
 				if (bindingResult.hasErrors()) {
@@ -102,25 +103,20 @@ public class BoastController {
 				if(principal == null) {
 					throw new MyAsyncNotFoundException("인증이 되지 않았습니다.");
 				}
-				Boast boardEntity = boastRepository.findById(id)
-						.orElseThrow(()->new MyAsyncNotFoundException("해당 게실글을 찾을 수 없습니다"));
+				Boast boastEntity = boastRepository.findById(id)
+						.orElseThrow(()->new MyAsyncNotFoundException("해당 게시글을 찾을 수 없습니다"));
 				
-				if(principal.getId() != boardEntity.getUser().getId()) {
-					throw new MyAsyncNotFoundException("해달 게시물의 권한이 없습니다");
+				if(principal.getId() != boastEntity.getUser().getId()) {
+					throw new MyAsyncNotFoundException("해당 게시물의 권한이 없습니다");
 				}
 				
-				Boast board = dto.toEntity(principal);
-				board.setUser(principal);
-				board.setId(id);
-				boastRepository.save(board);			
+				Boast boast = dto.toEntity(principal);
+				boast.setUser(principal);
+				boast.setId(id);
+				boastRepository.save(boast);			
 				
-				if(animalId == 1) {
-					return "redirect:/"+animalId+"/boast/"+id;
-				} else if(animalId == 2){
-					return "redirect:/"+animalId+"/boast/"+id;
-				} else {
-					return "redirect:/main";
-				}
+				return new CMRespDto<>(1, "업데이트 성공", null);
+				
 	}
 	
 	// 글삭제 기능---------------------------------
@@ -181,7 +177,17 @@ public class BoastController {
 	
 	// 페이지 불러오기
 	@GetMapping("/{animalId}/boast/{id}/updateForm")
-	public String boastUpdateForm(@PathVariable int animalId, @PathVariable int id) {
+	public String boastUpdateForm(@PathVariable int animalId, @PathVariable int id, Model model) {
+		
+		Boast boastEntity = boastRepository.findById(id).
+				orElseThrow(()-> new MyNotFoundException(id + " 페이지를 찾을 수 없습니다."));
+		
+		LocalDateTime boardCreatedAt = boastEntity.getCreatedAt();
+		String parseCreatedAt = boardCreatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+		
+		model.addAttribute("boastEntity", boastEntity);
+		model.addAttribute("parseCreatedAt", parseCreatedAt);
+		
 		if(animalId == 1) {
 			return "cat/boast/updateForm";
 		} else if(animalId == 2) {
