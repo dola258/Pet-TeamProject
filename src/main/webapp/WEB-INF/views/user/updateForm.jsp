@@ -40,7 +40,7 @@
 					class="form-control" id="phone"> <br>
 				<div class="d-flex justify-content-around">
 					<button type="submit" class="btn btn-success">수정완료</button>
-					<button type="button" class="btn btn-secondary btns">취소</button>
+					<button type="button" class="btn btn-secondary btns" onclick="location.href='/user/detail/${sessionScope.principal.id}'">취소</button>
 				</div>
 			</form>
 		</div>

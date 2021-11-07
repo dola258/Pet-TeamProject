@@ -70,15 +70,30 @@ public class UserController {
 	
 	// 비밀번호 변경 기능 ------------------------------------
 	@PostMapping("/pw/modal")
-	public @ResponseBody CMRespDto<String> pwFind(@RequestBody @Valid FindPwReqDto dto) {
+	public @ResponseBody CMRespDto<String> pwFind(@RequestBody @Valid FindPwReqDto dto, BindingResult bindingResult) {
+		
+		// 유효성
+		if(bindingResult.hasErrors()) {
+			Map<String, String> errorMap = new HashMap<>();
+			for(FieldError error : bindingResult.getFieldErrors()) {
+				errorMap.put(error.getField(), error.getDefaultMessage());
+				System.out.println("필드 : " + error.getField());
+				System.out.println("메세지 : " + error.getDefaultMessage());
+			}
+			throw new MyAsyncNotFoundException(errorMap.toString());
+		}
+		
 		User userEntity = userRepository.mPWFind(dto.getUsername(), dto.getName(),dto.getBirth(),dto.getEmail());
-		userId = userEntity.getId();
+	
 	
 		if(userEntity == null ) {
-			return new CMRespDto<>(0, "존재하지 않는 회원입니다", null);
-		} else {
-			return new CMRespDto<>(1, "성공", null);
-		}			
+			throw new MyAsyncNotFoundException("입력한 정보가 일치하지 않아 비밀번호를 찾을 수 없습니다.");
+		} 
+
+		userId = userEntity.getId();
+		
+		return new CMRespDto<>(1, "성공", null);
+				
 	}
 	
 	@PutMapping("/pw/change")
@@ -131,9 +146,8 @@ public class UserController {
 	public @ResponseBody String join(@Valid JoinReqDto dto, BindingResult bindingResult ) {
 		
 		String authKey = authEmailRepository.mFindAuthKey(dto.getAuthKey());
-		System.out.println(authKey+"dasfasfadsdf");
 		
-		if(authKey==dto.getAuthKey()) {
+		if(authKey!=dto.getAuthKey()) {
 			return Script.back("인증번호를 잘못 입력하였습니다.");
 		}
 		
@@ -186,8 +200,6 @@ public class UserController {
 	@PutMapping("/api/user/{id}")
 	public @ResponseBody CMRespDto<String> update(@PathVariable int id, @RequestBody UserUpdateDto dto) {
 		
-		System.out.println("나 때려짐???");
-
 		String authKey = authEmailRepository.mFindAuthKey(dto.getEmail());
 		
 		if(!authKey.equals(dto.getAuthKey())) { 

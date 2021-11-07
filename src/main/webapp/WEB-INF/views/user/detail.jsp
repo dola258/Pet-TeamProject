@@ -51,7 +51,7 @@
 		<br>
 		<div class="d-flex justify-content-around">
 			<button type="submit" class="btn btn-success">수정하기</button>
-			<button type="button" class="btn btn-secondary">뒤로가기</button>
+			<button type="button" class="btn btn-secondary" onclick="location.href='/'">뒤로가기</button>
 		</div>
 		</div>
 	</form>

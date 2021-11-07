@@ -44,7 +44,7 @@
 							<span class="font-italic">작성자 : ${comment.user.username}</span>&emsp;
 							<div class="font-italic" id="commentCreatedAt"><fmt:parseDate value="${comment.createdAt}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="parsedDateTime" type="both" /><fmt:formatDate pattern="yyyy-MM-dd' 'HH:mm:ss" value="${ parsedDateTime }" /></div>&emsp;
 							<c:if test="${sessionScope.principal.username == comment.user.username}">
-								<button type="button" class="btn btn-secondary btn-sm" id="reply_update-${comment.id}">수정</button>&nbsp;
+								<button type="button" class="btn btn-secondary btn-sm" onclick="reply_update(${comment.id})">수정</button>&nbsp;
 								<button type="button" class="btn btn-danger btn-sm" onclick="reply_delete(${comment.id})">삭제</button>
 							</c:if>
 						</div>

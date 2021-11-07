@@ -12,8 +12,8 @@
 	<div class="d-flex justify-content-center">
 		<div class="d-flex flex-column inner-container">
 			<div>
-				<button type="button" class="btn btn-outline-success"  onclick="location.href='#'">아이디 찾기</button>
-				<button type="button" class="btn btn-outline-warning active" data-bs-toggle="button"  aria-pressed="true" onclick="location.href='#'">비밀번호 변경</button>
+				<button type="button" class="btn btn-outline-success"  onclick="location.href='/user/idFind'">아이디 찾기</button>
+				<button type="button" class="btn btn-outline-warning active" data-bs-toggle="button"  aria-pressed="true" onclick="location.href='/user/pwFind'">비밀번호 변경</button>
 				<div class="border border-warning"></div>
 			</div>
 			<br>
@@ -46,7 +46,7 @@
 				<p style="text-align: center;">등록된 이메일 주소로 확인링크가 전송됩니다.</p>
 				<div class="d-flex justify-content-center">
 					<button type="submit" class="btn btn-success btns">찾기</button>
-					<button type="button" class="btn btn-secondary btns btn-cancel" onclick="location.href='#'">취소</button>
+					<button type="button" class="btn btn-secondary btns btn-cancel" onclick="location.href='/user/loginForm'">취소</button>
 				</div>
 				</form>
 			</div>
@@ -111,7 +111,7 @@
 			$("#pwdFindModal").modal('show');
 			
 		}else{
-			alert("업데이트 실패 : "+parseResponse.msg);
+			alert(parseResponse.msg);
 		}
 	}
 	</script>
