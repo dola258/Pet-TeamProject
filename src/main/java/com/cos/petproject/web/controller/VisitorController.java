@@ -23,7 +23,7 @@ public class VisitorController {
 	
 	private final VisitorRepository visitorRepository;
 	
-	@GetMapping("/vistor")
+	@GetMapping("/visitor")
 	public String home() {
 		return "/admin/home";
 	}
