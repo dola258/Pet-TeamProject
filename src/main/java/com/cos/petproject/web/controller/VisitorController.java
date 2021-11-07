@@ -4,11 +4,15 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cos.petproject.domain.user.User;
+import com.cos.petproject.domain.user.UserRepository;
 import com.cos.petproject.domain.visitor.VisitorRepository;
+import com.cos.petproject.handler.exception.MyNotFoundException;
 import com.cos.petproject.util.VisitorReportInterface;
 import com.cos.petproject.web.dto.CMRespDto;
 import com.google.gson.Gson;
@@ -22,16 +26,20 @@ import lombok.RequiredArgsConstructor;
 public class VisitorController {
 	
 	private final VisitorRepository visitorRepository;
+	private final UserRepository userRepository;
 	
-	@GetMapping("/visitor")
-	public String home() {
+	@GetMapping("/admin/main")
+	public String home(Model model) {
+		
+		List<User> userEntity = userRepository.mSelectUser().orElseThrow(()-> new MyNotFoundException("회원 목록을 찾을 수 없습니다."));
+		
+		model.addAttribute("userEntity", userEntity);
+		
 		return "/admin/home";
 	}
 	
 	@PostMapping("/getAreaChartData")
 	public @ResponseBody CMRespDto<String> getAreaChartData(){
-		
-		// 서비스 단으로 이동시키면 좋을 듯
 		
 		// 최근 한달간 일별 방문자수 DB에서 가져와서 json 으로 만들기
 		List<VisitorReportInterface> vTList = visitorRepository.mVisitorOMITodayChk(); // DB에서 데이터 가져와서 리스트에 담음
@@ -58,8 +66,6 @@ public class VisitorController {
 	
 	@PostMapping("/getBarChartData")
 	public @ResponseBody CMRespDto<String> getBarChartData(){
-		
-		// 서비스 단으로 이동시키면 좋을 듯
 		
 		// 1년간 월별 방문자수 DB에서 가져와서 json 으로 만들기
 		List<VisitorReportInterface> vMList = visitorRepository.mVisitorFaYMonthChk(); // DB에서 데이터 가져와서 리스트에 담음
