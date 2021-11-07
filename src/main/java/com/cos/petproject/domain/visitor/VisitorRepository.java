@@ -9,8 +9,8 @@ import com.cos.petproject.util.VisitorReportInterface;
 
 public interface VisitorRepository extends JpaRepository<Visitor, Integer> {
 	// 방문자 정보 추가 // If(refer != null and refer !='', refer, refer)
-	@Query(value = "Insert Into Visitor(ip, TIME, refer, agent) VALUES(:ip, SYSDATE(), (Select IFNULL( :refer, NULL )), :agent);", nativeQuery = true)
-	void mInsertVisitor(String ip, String refer, String agent);
+	@Query(value = "Insert Into Visitor(TIME) VALUES(SYSDATE());", nativeQuery = true)
+	void mInsertVisitor();
 	
 	// 전체 일별 방문자 수 조회
 	@Query(value = "SELECT date_format(TIME, '%Y-%m-%d') AS time, count(id) AS id FROM visitor Group BY Year(TIME),Month(TIME),Day(TIME) ORDER BY time;", nativeQuery = true)

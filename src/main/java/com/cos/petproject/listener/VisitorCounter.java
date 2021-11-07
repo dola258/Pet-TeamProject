@@ -19,8 +19,13 @@ public class VisitorCounter implements HttpSessionListener {
 
 	@Override
 	public void sessionCreated(HttpSessionEvent se) {
+		HttpSession session = se.getSession(); // 세션을 만든다.
 
+		WebApplicationContext wac = WebApplicationContextUtils.getRequiredWebApplicationContext(session.getServletContext()); //등록되어있는 빈을 사용할수 있도록 설정해준다
 		
+		VisitorRepository visitorRepository = (VisitorRepository) wac.getBean("visitorRepository"); // 등록되어 있는 visitorRepository를 사용가능하게 설정
+		
+		visitorRepository.mInsertVisitor();
 	}
 
 	@Override

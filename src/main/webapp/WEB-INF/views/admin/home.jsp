@@ -42,7 +42,7 @@
                                         <i class="fas fa-chart-area me-1"></i>
                                         일별 방문자
                                     </div>
-                                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+                                    <div class="card-body" id="AreaChartContainer"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
                                 </div>
                             </div>
                             <div class="col-xl-6">
@@ -51,7 +51,7 @@
                                         <i class="fas fa-chart-bar me-1"></i>
                                         월별 방문자
                                     </div>
-                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+                                    <div class="card-body" id="BarChartContainer"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
                                 </div>
                             </div>
                         </div>
@@ -107,5 +107,21 @@
         <script src="/admin/assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="/admin/js/datatables-simple-demo.js"></script>
+        
+<script>
+	
+	getAreaChartData();
+	getBarChartData();
+	
+	setInterval(function(){
+		getAreaChartData();
+	}, 3000)
+	
+	setInterval(function(){
+		getBarChartData();
+	}, 3000)
+	
+</script>
+        
 </body>
 </html> 
