@@ -3,6 +3,8 @@ package com.cos.petproject.web.controller;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,9 +29,22 @@ public class VisitorController {
 	
 	private final VisitorRepository visitorRepository;
 	private final UserRepository userRepository;
+	private final HttpSession session;
 	
 	@GetMapping("/admin/main")
 	public String home(Model model) {
+		
+		User principal = (User) session.getAttribute("principal");
+		
+		// 로그인 상태 확인
+		if(principal == null) {
+			throw new MyNotFoundException("관리자라면 로그인을 하십시오.");
+		}
+		
+		// 관리자만 들어갈 수 있게
+		if(!principal.getAuthority().equals("admin")) {
+			throw new MyNotFoundException("관리자만 들어갈 수 있습니다.");
+		}
 		
 		List<User> userEntity = userRepository.mSelectUser().orElseThrow(()-> new MyNotFoundException("회원 목록을 찾을 수 없습니다."));
 		
