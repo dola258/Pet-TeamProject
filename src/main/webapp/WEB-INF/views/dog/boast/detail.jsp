@@ -10,7 +10,7 @@
 				<div class="p-2 flex-grow-1 bd-highlight">${boastEntity.title}</div>
 
 				
-			<c:if test="${sessionScope.principal.username == boastEntity.user.username}">
+			<c:if test="${sessionScope.principal.username == boastEntity.user.username || sessionScope.principal.authority eq 'admin'}">
 				<div class="btn-group">
 					<div class="btn-group">
 						<button type="button" class="btn dropdown-toggle"
@@ -56,7 +56,7 @@
 				<p></p>
 			</c:forEach>
 			<c:if test="${!empty sessionScope.principal.username}">
-			<form action="/2/boast/${tipEntity.id}/comment" method="post">
+			<form action="/2/boast/${boastEntity.id}/comment" method="post">
 				<div class="card-footer">
 					<div class="input-group mb-3">
 						<span class="input-group-text">${sessionScope.principal.username }</span>

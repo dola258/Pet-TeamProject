@@ -23,7 +23,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	
 	// 성준
 	// 회원 목록 조회 (만 나이 X)
-	@Query(value = "SELECT id, authority, PASSWORD, nickname, createdAt, NAME, username, if(gender = 'man', '남자', '여자') AS gender, ROUND((TO_DAYS(NOW()) - TO_DAYS(DATE_FORMAT(birth, '%Y-%m-%d'))) / 365) AS birth, phone, email FROM user;", nativeQuery = true)
+	@Query(value = "SELECT id, authority, PASSWORD, nickname, NAME, username, if(gender = 'man', '남자', '여자') AS gender, ROUND((TO_DAYS(NOW()) - TO_DAYS(DATE_FORMAT(birth, '%Y-%m-%d'))) / 365) AS birth, phone, email FROM user;", nativeQuery = true)
 	Optional<List<User>> mSelectUser();
 	
 	// 재영

@@ -41,7 +41,7 @@
       <c:choose>
          <c:when test="${tipEntity.first}"></c:when>
          <c:otherwise>
-            <li class="page-item"><a class="page-link" href="/${animalId}/tip?page=${tip.number-1}"><</a></li>
+            <li class="page-item"><a class="page-link" href="/${animalId}/tip?page=${tipEntity.number-1}"><</a></li>
          </c:otherwise>
       </c:choose>
       

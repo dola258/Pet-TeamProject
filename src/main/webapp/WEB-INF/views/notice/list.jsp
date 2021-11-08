@@ -13,7 +13,9 @@
 					<div  class="d-flex justify-content-between">
 						<div class="align-self-end">조회수</div>
 						<div>
+						<c:if test="${sessionScope.principal.authority eq 'admin' }">
 							<button type="button" class="btn btn-success" onclick="location.href='/notice/saveForm'">글쓰기</button>
+						</c:if>
 						</div>
 					</div>
 				</th>
@@ -41,7 +43,7 @@
       <c:choose>
          <c:when test="${noticeEntity.first}"></c:when>
          <c:otherwise>
-            <li class="page-item"><a class="page-link" href="/notice?page=${notice.number-1}"><</a></li>
+            <li class="page-item"><a class="page-link" href="/notice?page=${noticeEntity.number-1}"><</a></li>
          </c:otherwise>
       </c:choose>
       

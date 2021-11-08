@@ -135,14 +135,14 @@ public class BoastController {
 
 		// 인증이 된 사람만 함수 접근 가능!! (로그인 된 사람)
 		User principal = (User) session.getAttribute("principal");
-		if (principal == null) {
+		if (principal == null && !principal.getAuthority().equals("admin")) {
 			throw new MyAsyncNotFoundException("인증이 되지 않았습니다.");
 		}
 
 		// 권한이 있는 사람만 함수 접근 가능(principal.id == {id})
 		Boast boastEntity = boastRepository.findById(id)
 				.orElseThrow(() -> new MyAsyncNotFoundException("해당글을 찾을 수 없습니다."));
-		if (principal.getId() != boastEntity.getUser().getId()) {
+		if (principal.getId() != boastEntity.getUser().getId() && !principal.getAuthority().equals("admin")) {
 			throw new MyAsyncNotFoundException("해당글을 삭제할 권한이 없습니다.");
 		}
 

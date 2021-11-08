@@ -41,7 +41,7 @@
       <c:choose>
          <c:when test="${qnaEntity.first}"></c:when>
          <c:otherwise>
-            <li class="page-item"><a class="page-link" href="/${animalId}/qna?page=${qna.number-1}"><</a></li>
+            <li class="page-item"><a class="page-link" href="/${animalId}/qna?page=${qnaEntity.number-1}"><</a></li>
          </c:otherwise>
       </c:choose>
       

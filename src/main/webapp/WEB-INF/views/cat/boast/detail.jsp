@@ -11,7 +11,7 @@
 				<div class="p-2 flex-grow-1 bd-highlight">${boastEntity.title}</div>
 
 				
-			<c:if test="${sessionScope.principal.username == boastEntity.user.username}">
+			<c:if test="${sessionScope.principal.username == boastEntity.user.username || sessionScope.principal.authority eq 'admin'}}">
 				<div class="btn-group">
 					<div class="btn-group">
 						<button type="button" class="btn dropdown-toggle"
