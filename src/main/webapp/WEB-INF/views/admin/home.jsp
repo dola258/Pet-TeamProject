@@ -1,4 +1,16 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	String strReferer = request.getHeader("referer");
+	if(strReferer == null){
+		%><script type="text/javascript">
+		alert("정상적인 경로를 통해 다시 접근해 주십시오.");
+		document.location.href="/user/loginForm";
+		</script><%
+		return;
+	}
+%>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -20,9 +32,8 @@
                         <div class="nav">
 
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="/test/admin/home">Home</a>
-                                <a class="nav-link" href="/test/admin/loginForm">관리자 로그인</a>
-                                <a class="nav-link" href="/test/admin/joinForm">관리자 가입</a>
+                                <a class="nav-link" href="/admin/main">Home</a>
+                                <a class="nav-link" href="/">메인페이지로</a>
                             </nav>
                         </div>
                     </div>
@@ -75,22 +86,24 @@
                                     <tfoot>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
+                                            <th>Username</th>
+                                            <th>Gender</th>
                                             <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                                            <th>phone</th>
+                                            <th>email</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
-                                        </tr>
+										<c:forEach var="user" items="${userEntity}">
+										    <tr>
+										       <td>${user.name }</td>
+										      <td>${user.username }</td>
+										      <td>${user.gender }</td>
+										      <td>${user.birth}</td>
+										      <td>${user.phone}</td>
+										      <td>${user.email}</td>
+									      </tr>
+										</c:forEach>
                                     </tbody>
                                 </table>
                             </div>
@@ -109,7 +122,6 @@
         <script src="/admin/js/datatables-simple-demo.js"></script>
         
 <script>
-	
 	getAreaChartData();
 	getBarChartData();
 	
@@ -122,6 +134,6 @@
 	}, 3000)
 	
 </script>
-        
+
 </body>
 </html> 
