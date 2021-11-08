@@ -26,7 +26,7 @@
     			<button type="submit" class="btn btn-success">로그인</button>
     		</div>
     		<div class="p-2">
-    			<button type="submit" class="btn btn-light"  >아이디/비밀번호 찾기</button>
+    			<button type="button" class="btn btn-light" onclick="location.href='/user/idFind'">아이디/비밀번호 찾기</button>
     		</div>
     	</div>
   	</form>

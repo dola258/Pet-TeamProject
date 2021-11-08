@@ -1,5 +1,7 @@
 package com.cos.petproject.web.dto.board;
 
+import java.time.LocalDateTime;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -19,7 +21,7 @@ public class NoticeSaveReqDto {
 	@NotBlank
 	private String title;
 	private String content;
-
+	
 	public Notice toEntity(User principal) {
 		Notice notice = new Notice();
 		notice.setTitle(title);

@@ -3,13 +3,12 @@
 
 <style>
 
-	@import url("/user/button/btn-cancel.css");
+	@import url("/user_Css/button/btn-cancel.css");
 
 </style>
 
 <div class="container">
-	<h1>고양이/자랑하기/글수정</h1>
-	<h1>자랑하기</h1>
+	<h1>냐옹이-자랑하기</h1>
 	<form onsubmit="update(event, ${boastEntity.id})" >
 		<div class="mt-4 p-5 bg-light text-white rounded">
 			 <input id="title" type="text"  value="${boastEntity.title}" class="form-control" placeholder="제목을 입력하세요.">

@@ -1,5 +1,7 @@
 package com.cos.petproject.domain.boast;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -15,7 +17,9 @@ public interface BoastRepository extends JpaRepository<Boast, Integer>{
 	void mCounter(int id);
 	
 	// 효빈
-
+	@Query(value = "select * from boast where animalId = :animalId", nativeQuery = true)
+	Page<Boast> mFindKind(int animalId, Pageable pageRequest);
+	
 	
 	// 재영
 	

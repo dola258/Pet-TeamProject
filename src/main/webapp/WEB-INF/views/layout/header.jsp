@@ -60,7 +60,7 @@
 						<ul class="navbar-nav justify-content-end">
 							<li class="nav-item"><a class="nav-link" href="/user/loginForm">로그인</a></li>
 							<li class="nav-item"><a class="nav-link" href="/user/joinForm">회원가입</a></li>
-							<li class="nav-item"><a class="nav-link" href="/notice">공지사항</a></li>
+							<li class="nav-item"><a class="nav-link" href="/notice?page=0">공지사항</a></li>
 						</ul>
 					</c:when>
 					<c:otherwise>
@@ -69,7 +69,7 @@
 								<ul class="navbar-nav justify-content-end">
 									<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
 									<li class="nav-item"><a class="nav-link" href="/user/detail/${sessionScope.principal.id }">내정보</a></li>
-									<li class="nav-item"><a class="nav-link" href="/notice">공지사항</a></li>
+									<li class="nav-item"><a class="nav-link" href="/notice?page=0">공지사항</a></li>
 									<li class="nav-item"><a class="nav-link" href="/admin/home">관리자페이지</a></li>
 								</ul>
 							</c:when>
@@ -77,7 +77,7 @@
 								<ul class="navbar-nav justify-content-end">
 									<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
 									<li class="nav-item"><a class="nav-link" href="/user/detail/${sessionScope.principal.id }">내정보</a></li>
-									<li class="nav-item"><a class="nav-link" href="/notice">공지사항</a></li>
+									<li class="nav-item"><a class="nav-link" href="/notice?page=0">공지사항</a></li>
 								</ul>
 							</c:otherwise>
 						</c:choose>
