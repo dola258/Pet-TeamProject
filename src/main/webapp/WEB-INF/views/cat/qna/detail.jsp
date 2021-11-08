@@ -10,13 +10,12 @@
 				<div class="p-2 flex-grow-1 bd-highlight">${qnaEntity.title}</div>
 
 				
-			<c:if test="${sessionScope.principal.username == qnaEntity.user.username || sessionScope.principal.authority eq 'admin'}}">
+			<c:if test="${sessionScope.principal.username == qnaEntity.user.username || sessionScope.principal.authority eq 'admin'}">
 				<div class="btn-group">
 					<div class="btn-group">
 						<button type="button" class="btn dropdown-toggle"
 							data-bs-toggle="dropdown">더보기</button>
 						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="/1/qna/${qnaEntity.id}/updateForm">수정하기</a></li>
 							<li><a class="dropdown-item" onclick="deleteById(${qnaEntity.id})">삭제하기</a></li>
 						</ul>
 					</div>
