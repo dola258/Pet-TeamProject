@@ -3,18 +3,18 @@
 
 <style>
 
-	@import url("/user/button/btn-cancel.css");
+	@import url("/user_Css/button/btn-cancel.css");
 
 </style>
 
 <div class="container">
 	<h1>공지사항/글작성</h1>
 	<h1>공지사항</h1>
-	<form action="" >
+	<form action="/notice" method="post" >
 		<div class="mt-4 p-5 bg-light text-white rounded">
-			<input type="text" class="form-control" placeholder="제목을 입력하세요.">
+			<input type="text" class="form-control" name="title" placeholder="제목을 입력하세요.">
 			<hr class="bg-dark">
-			<textarea id="summernote" class="form-control" rows="10" placeholder="내용을 입력하세요." ></textarea>
+			<textarea id="summernote" class="form-control" name="content" rows="10" placeholder="내용을 입력하세요." ></textarea>
 			<hr class="bg-dark">
 			<br />
 			<div class="d-flex justify-content-end">
@@ -24,6 +24,7 @@
 		</div>
 	</form>
 </div>
+
 <script>
 	$('#summernote').summernote({
 		placeholder : "내용을 입력하세요.(엔터 키를 누르면 크기가 늘어납니다.)",

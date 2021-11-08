@@ -33,6 +33,8 @@ public class Notice {
 	@Lob
 	private String content; // 내용
 	
+	private int counter;
+	
 	@JoinColumn(name = "userId")
 	@ManyToOne
 	private User user;

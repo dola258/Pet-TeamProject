@@ -10,16 +10,16 @@
 <div class="container">
 	<h1>고양이/자랑하기/글수정</h1>
 	<h1>자랑하기</h1>
-	<form onsubmit="update(event, ${boardEntity.id})" >
+	<form onsubmit="update(event, ${boastEntity.id})" >
 		<div class="mt-4 p-5 bg-light text-white rounded">
-			 <input id="title" type="text"  value="${boardEntity.title}" class="form-control" placeholder="제목을 입력하세요.">
+			 <input id="title" type="text"  value="${boastEntity.title}" class="form-control" placeholder="제목을 입력하세요.">
 			<hr class="bg-dark">
-			<textarea id="summernote" class="form-control" rows="10" placeholder="내용을 입력하세요.">${boardEntity.content}</textarea>
+			<textarea id="content" class="form-control" rows="10" placeholder="내용을 입력하세요.">${boastEntity.content}</textarea>
 			<hr class="bg-dark">
 			<br />
 			<div class="d-flex justify-content-end">
 				<button type="submit" class="btn btn-success" >글수정</button>
-				<button type="button" class="btn btn-secondary btn-cancel" onclick="location.href='/1/boast'">취소</button>
+				<button type="button" class="btn btn-secondary btn-cancel" onclick="location.href='http://localhost:8080/1/boast?page=0'">취소</button>
 			</div>
 		</div>
 	</form>
@@ -30,18 +30,16 @@ async function update(event, id){
 	
 	   event.preventDefault();
 
-	   let boardUpdateDto = {
+	   let boastUpdateDto = {
 			   title: document.querySelector("#title").value,
 			   content: document.querySelector("#content").value,
 	   };
 
-		console.log(boardUpdateDto);
-		console.log(JSON.stringify(BoastSaveReqDto));
+		console.log(boastUpdateDto);
 	
-		
-		let response = await fetch("http://localhost:8080"+animalld+"/board/"+id, {
+		let response = await fetch("http://localhost:8080/1/boast/"+id, {
 			method: "put",
-			body: JSON.stringify(BoastSaveReqDto),
+			body: JSON.stringify(boastUpdateDto),
 			headers: {
 				"Content-Type": "application/json; charset=utf-8"
 			}
@@ -53,14 +51,14 @@ async function update(event, id){
 		
 		if(parseResponse.code == 1){
 			alert("업데이트 성공");
-			location.href = "/board/"+id
+			location.href = "/1/boast/"+id
 		}else{
 			alert("업데이트 실패");
 			alert("업데이트 실패 : "+parseResponse.msg);
 		}
 }
 
-	$('#summernote').summernote({
+	$('#content').summernote({
 		placeholder : "내용을 입력하세요.(엔터 키를 누르면 크기가 늘어납니다.)",
 		height: 350
 	});

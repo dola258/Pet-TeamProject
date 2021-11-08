@@ -3,8 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="container">
-	<h1>고양이/자랑하기/디테일</h1>
-	<h1>자랑하기</h1>
+	<h1>냐옹이-자랑하기</h1>
 	<div class="card">
 		<div class="card-header">
 			<div class="d-flex">

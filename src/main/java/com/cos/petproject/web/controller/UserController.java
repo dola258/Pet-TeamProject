@@ -144,10 +144,10 @@ public class UserController {
 	// 회원가입 기능 --------------------------------------------
 	@PostMapping("/join")
 	public @ResponseBody String join(@Valid JoinReqDto dto, BindingResult bindingResult ) {
-		
+		System.out.println(dto.getAuthKey());
 		String authKey = authEmailRepository.mFindAuthKey(dto.getAuthKey());
-		
-		if(authKey!=dto.getAuthKey()) {
+		System.out.println(authKey);
+		if(authKey == null) {
 			return Script.back("인증번호를 잘못 입력하였습니다.");
 		}
 		

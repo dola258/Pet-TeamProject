@@ -21,7 +21,6 @@ public class BoastSaveReqDto {
 	@NotBlank
 	private String title;
 	private String content;
-	private LocalDateTime createdAt;
 	
 	public Boast toEntity(User principal) {
 		Boast boast = new Boast();

@@ -2,8 +2,7 @@
 <%@ include file="../../layout/header.jsp"%>
 
 <div class="container">
-	<h1>고양이/자랑하기/리스트</h1>
-	<h1>자랑하기</h1>
+	<h1>냐옹이-자랑하기</h1>
 	<table class="table table-hover">
 		<thead>
 			<tr>
@@ -29,7 +28,6 @@
                <td>${boast.counter}</td>
                </tr>
          </c:forEach>
-
       </tbody>
 
    </table>
