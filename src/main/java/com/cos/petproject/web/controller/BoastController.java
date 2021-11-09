@@ -116,11 +116,13 @@ public class BoastController {
 		}
 		Animal animal = animalRepository.getById(animalId);
 		
+		dto.setContent(dto.getContent().replaceAll("<p>", ""));
+		dto.setContent(dto.getContent().replaceAll("</p>", ""));
+		
 		Boast boast = dto.toEntity(principal);
 		boast.setUser(principal);
 		boast.setId(id);
 		boast.setAnimal(animal);
-		boast.setCounter());
 		boast.setCreatedAt(LocalDateTime.now());
 		boastRepository.save(boast);
 
