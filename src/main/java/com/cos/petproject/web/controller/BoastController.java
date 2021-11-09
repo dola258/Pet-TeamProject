@@ -120,6 +120,7 @@ public class BoastController {
 		boast.setUser(principal);
 		boast.setId(id);
 		boast.setAnimal(animal);
+		boast.setCounter());
 		boast.setCreatedAt(LocalDateTime.now());
 		boastRepository.save(boast);
 

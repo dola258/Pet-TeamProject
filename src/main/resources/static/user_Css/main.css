@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+
+.cards {
+	height: 400px;	
+}
+
+.cards-title{
+	height:50px;
+
+	
+}
+
+.cards-content{
+	height: 200px;
+	overflow:hidden;
+}
