@@ -23,7 +23,7 @@ public interface BoastRepository extends JpaRepository<Boast, Integer>{
 	Page<Boast> mFindKind(int animalId, Pageable pageRequest);
 	
 	// 메인페이지 게시글 조회수 상위 3개
-	@Query(value = "select *, rank() over(order by counter desc) as 'ranking' from boast", nativeQuery = true)
+	@Query(value = "SELECT  * from boast ORDER BY counter DESC LIMIT 3;", nativeQuery = true)
 	List<Boast> mMain();
 	
 	// 재영

@@ -20,16 +20,13 @@ public class MainController {
 	
 	@GetMapping("/main")
 	public String home(Model model) {
-	//	int n = 3;
 		
 		// 전체 게시글 랭킹
-	 //   List<Boast> mainAllRank = boastRepository.mMain();	
+	    List<Boast> mainRank = boastRepository.mMain();	
 		
-	//    List<Boast> mainThreeRank = 
-	    
-	 //   model.addAttribute("mainEntity", mainEntity);
+	    System.out.println(mainRank);
+	    model.addAttribute("mainEntity", mainRank);
 
-		//System.out.println(model);
 		
 		
 		return "main/main";

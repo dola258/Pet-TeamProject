@@ -15,9 +15,9 @@
           <div class="card">
             <img src="images/card-image.png" alt="" />
             <div class="card-body">
-              <h5 class="card-title">게시글 제목</h5>
-              <p class="card-text">위에 이미지 들어갈 예정 고양이</p>
-              <a href="#" class="btn btn-success">게시물보기</a>
+              <h5 class="card-title">${mainEntity[0].title }</h5>
+              <p class="card-text">${mainEntity[0].content }</p>
+              <a href="/${mainEntity[0].animal.id }/boast/${mainEntity[0].id}" class="btn btn-success">게시물보기</a>
             </div>
           </div>
         </div>
@@ -25,9 +25,9 @@
           <div class="card">
             <img src="images/card-image.png" alt="" />
             <div class="card-body">
-              <h5 class="card-title">게시글 제목</h5>
-              <p class="card-text">위에 이미지 들어갈 예정 강아지</p>
-              <a href="#" class="btn btn-success">게시물보기</a>
+              <h5 class="card-title">>${mainEntity[1].title }</h5>
+              <p class="card-text">${mainEntity[1].content }</p>
+              <a href="/${mainEntity[1].animal.id }/boast/${mainEntity[1].id}" class="btn btn-success">게시물보기</a>
             </div>
           </div>
         </div>
@@ -35,9 +35,9 @@
           <div class="card">
             <img src="images/card-image.png" alt="" />
             <div class="card-body">
-              <h5 class="card-title">게시글 제목</h5>
-              <p class="card-text">위에 이미지 들어갈 예정 입니다.</p>
-              <a href="#" class="btn btn-success ">게시물보기</a>
+              <h5 class="card-title">${mainEntity[2].title }</h5>
+              <p class="card-text">${mainEntity[2].content }</p>
+              <a href="/${mainEntity[2].animal.id }/boast/${mainEntity[2].id}" class="btn btn-success ">게시물보기</a>
             </div>
           </div>
         </div>
