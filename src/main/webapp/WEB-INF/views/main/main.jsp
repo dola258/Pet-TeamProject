@@ -5,7 +5,7 @@
 <style>
 
 	@import url("/user_Css/main.css");
-
+	
 </style>
 
 
@@ -32,12 +32,11 @@
           <div class="card">
             <div class="card-body cards">
               <h5 class="card-title cards-title">${mainEntity[1].title }</h5>
-              <p class="card-text cards-content">${mainEntity[1].content }</p>
+              <p> class="card-text cards-content">${mainEntity[1].content }</p>
               <a href="/${mainEntity[1].animal.id }/boast/${mainEntity[1].id}" class="btn btn-success">게시물보기</a>
             </div>
           </div>
         </div>
-        
         <div class="col-4">
           <div class="card">
             <div class="card-body cards">
