@@ -25,7 +25,7 @@ public class MainController {
 	@GetMapping("/main")
 	public String home(Model model) {
 		
-		// 전체 게시글 랭킹
+		// 조회수 많은 3개 글 
 	    List<Boast> mainRanks = boastRepository.mMain();	
 	    List<String> image = new ArrayList<String>();
 		Iterator<Boast> it = mainRanks.iterator();
