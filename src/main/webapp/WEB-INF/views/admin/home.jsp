@@ -98,7 +98,7 @@
                                     <tbody id="tbody">
 										<c:forEach var="user" items="${userEntity}">
 										    <tr>
-										       <td>${user.name }</td>
+										      <td>${user.name }</td>
 										      <td>${user.username }</td>
 										      <td>${user.gender }</td>
 										      <td>${user.birth}</td>
