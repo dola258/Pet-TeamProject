@@ -4,7 +4,13 @@ Chart.defaults.global.defaultFontColor = '#292b2c';
 
 function resetBarCanvas(){
 	document.querySelector('#myBarChart').remove();
-	document.getElementById("BarChartContainer").innerHTML += "<canvas id='myBarChart' width='100%' height='40'></canvas>";
+	
+	const canvas = document.createElement("canvas");
+	
+	canvas.setAttribute("id", "myBarChart");
+	document.getElementById("BarChartContainer").appendChild(canvas);
+	
+	//document.getElementById("BarChartContainer").insertAdjacentHTML('afterbegin', "<canvas id='myBarChart' width='100%' height='40'></canvas>");
 	barCtx = document.querySelector("#myBarChart");
 };
 

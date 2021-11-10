@@ -6,7 +6,13 @@ Chart.defaults.global.defaultFontColor = '#292b2c';
 
 function resetAreaCanvas(){
 	document.querySelector('#myAreaChart').remove();
-	document.getElementById("AreaChartContainer").innerHTML += "<canvas id='myAreaChart' width='100%' height='40'></canvas>";
+	
+	const canvas = document.createElement("canvas");
+	
+	canvas.setAttribute("id", "myAreaChart");
+	document.getElementById("AreaChartContainer").appendChild(canvas);
+	
+	//document.getElementById("AreaChartContainer").insertAdjacentHTML('afterbegin', "<canvas id='myAreaChart' width='100%' height='40'></canvas>");
 	ctx = document.querySelector("#myAreaChart");
 };
 

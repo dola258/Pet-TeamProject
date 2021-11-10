@@ -53,7 +53,7 @@
                                         <i class="fas fa-chart-area me-1"></i>
                                         일별 방문자
                                     </div>
-                                    <div class="card-body" id="AreaChartContainer"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+                                    <div class="card-body" id="AreaChartContainer" style="position: relative; height:40%; width:100%"><canvas id="myAreaChart"></canvas></div>
                                 </div>
                             </div>
                             <div class="col-xl-6">
@@ -62,7 +62,7 @@
                                         <i class="fas fa-chart-bar me-1"></i>
                                         월별 방문자
                                     </div>
-                                    <div class="card-body" id="BarChartContainer"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+                                    <div class="card-body" id="BarChartContainer" style="position: relative; height:40%; width:100%"><canvas id="myBarChart"></canvas></div>
                                 </div>
                             </div>
                         </div>
