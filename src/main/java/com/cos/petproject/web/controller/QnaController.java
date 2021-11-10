@@ -121,6 +121,7 @@ public class QnaController {
 		qna.setUser(principal);
 		qna.setId(id);
 		qna.setAnimal(animal);
+		qna.setCounter(qnaEntity.getCounter());
 		qna.setCreatedAt(LocalDateTime.now());
 		qnaRepository.save(qna);
 

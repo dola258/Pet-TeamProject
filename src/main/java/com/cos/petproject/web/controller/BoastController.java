@@ -121,8 +121,10 @@ public class BoastController {
 		
 		Boast boast = dto.toEntity(principal);
 		boast.setUser(principal);
+		
 		boast.setId(id);
 		boast.setAnimal(animal);
+		boast.setCounter(boastEntity.getCounter());
 		boast.setCreatedAt(LocalDateTime.now());
 		boastRepository.save(boast);
 
@@ -182,7 +184,7 @@ public class BoastController {
 			}
 			return Script.back(errorMap.toString());
 		}
-
+		
 		// 게시글을 아이디를 조건으로 조회
 		Boast boastEntity = boastRepository.findById(id)
 				.orElseThrow(() -> new MyNotFoundException("해당게시글을 찾을 수 없습니다."));

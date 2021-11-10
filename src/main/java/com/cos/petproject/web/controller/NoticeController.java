@@ -113,6 +113,7 @@ public class NoticeController {
 		Notice notice = dto.toEntity(principal);
 		notice.setUser(principal);
 		notice.setId(id);
+		notice.setCounter(noticeEntity.getCounter());
 		notice.setCreatedAt(LocalDateTime.now());
 		noticeRepository.save(notice);			
 		

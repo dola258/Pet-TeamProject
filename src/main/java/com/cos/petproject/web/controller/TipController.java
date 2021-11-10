@@ -122,6 +122,7 @@ public class TipController {
 				tip.setUser(principal);
 				tip.setId(id);
 				tip.setAnimal(animal);
+				tip.setCounter(tipEntity.getCounter());
 				tip.setCreatedAt(LocalDateTime.now());
 				tipRepository.save(tip);			
 				
