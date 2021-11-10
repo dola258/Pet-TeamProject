@@ -40,6 +40,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	// DB에 저장된 인증키불러오기 - 회원가입 클릭했을때 적은 인증키로 찾아보기
 	@Query(value = "SELECT DISTINCT authKey from authemail where authKey = :authKey", nativeQuery = true)
 	String mFindAuthKey(String authKey);
+	// 권한 변경
+	@Query(value = "update user set authority = 'admin' where id = :id", nativeQuery = true)
+	void adminUpdate(int id);
 
 	// 주원
 	

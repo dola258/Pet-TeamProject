@@ -81,6 +81,8 @@
                                             <th>나이</th>
                                             <th>전화번호</th>
                                             <th>이메일</th>
+                                            <th>권한</th>
+                                            <th>변경</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -93,7 +95,7 @@
                                             <th>email</th>
                                         </tr>
                                     </tfoot>
-                                    <tbody>
+                                    <tbody id="tbody">
 										<c:forEach var="user" items="${userEntity}">
 										    <tr>
 										       <td>${user.name }</td>
@@ -102,6 +104,8 @@
 										      <td>${user.birth}</td>
 										      <td>${user.phone}</td>
 										      <td>${user.email}</td>
+										      <td id="Authority" class="d-flex justify-content-between">${user.authority}</td>
+											  <td><button type="submit" class="btn btn-success" onclick="AdminControllerchange(${user.id})">변경하기</button></td>									      
 									      </tr>
 										</c:forEach>
                                     </tbody>
@@ -134,6 +138,35 @@
 	}, 3000)
 	
 </script>
+<script>
+async function AdminControllerchange(id){ 
+   
+   let adminchangeDto = {
+         Authority: document.querySelector("#Authority").value
+      };
+   
 
+   let response = await fetch("http://localhost:8080/user/admin/update/" + id, {
+      method: "put",
+      body: JSON.stringify(adminchangeDto),
+      headers: {
+         "Content-Type": "application/json; charset=utf-8"
+      }
+   });
+   
+   let parseResponse = await response.json();
+   
+   console.log(parseResponse);
+  
+   if(parseResponse.code == 1){
+      alert("업데이트 성공");
+ 	  location.reload();
+   }else{
+      alert("업데이트 실패 : "+parseResponse.msg);
+   } 
+   
+
+}
+</script>        
 </body>
 </html> 

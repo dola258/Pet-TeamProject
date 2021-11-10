@@ -221,7 +221,22 @@ public class UserController {
 		return new CMRespDto<>(1, "성공", null);
 
 	}
-
+	
+	
+	// 권한 변경 
+	@PutMapping("/user/admin/update/{id}")
+	public @ResponseBody CMRespDto<String> adminUpdate(@PathVariable int id) {
+		
+		userRepository.adminUpdate(id);
+		
+		return new CMRespDto<>(1, "성공", null);
+	}
+	
+	
+	
+	
+	
+	
 	// 유저 관련 페이지 불러오기(GetMapping)
 	@GetMapping("/logout")
 	public String logout() {

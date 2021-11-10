@@ -47,7 +47,7 @@ public class VisitorController {
 		}
 		
 		List<User> userEntity = userRepository.mSelectUser().orElseThrow(()-> new MyNotFoundException("회원 목록을 찾을 수 없습니다."));
-		
+
 		model.addAttribute("userEntity", userEntity);
 		
 		return "/admin/home";
