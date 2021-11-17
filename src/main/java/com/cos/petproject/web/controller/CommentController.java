@@ -12,6 +12,7 @@ import com.cos.petproject.domain.comment.Comment;
 import com.cos.petproject.domain.comment.CommentRepository;
 import com.cos.petproject.domain.user.User;
 import com.cos.petproject.handler.exception.MyAsyncNotFoundException;
+import com.cos.petproject.service.CommentService;
 import com.cos.petproject.web.dto.CMRespDto;
 
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,7 @@ public class CommentController {
 	
 	private final CommentRepository commentRepository;
 	private final HttpSession session;
-	
+	private final CommentService commentService;
 	
 	// 댓글 삭제기능 ------------------------------------------
 	@DeleteMapping("/comment/{id}")
@@ -34,14 +35,7 @@ public class CommentController {
 			throw new MyAsyncNotFoundException("인증되지 않은 사용자입니다");
 		}
 		
-		Comment commentEntity =  commentRepository.findById(id)
-				.orElseThrow(()-> new MyAsyncNotFoundException("없는 댓글 번호입니다."));
-
-		if(principal.getId() != commentEntity.getUser().getId()) {
-			throw new MyAsyncNotFoundException("해당 게시글을 삭제할 수 없는 유저입니다.");
-		}
-
-		commentRepository.deleteById(id);
+		commentService.댓글삭제(id, principal);
 		
 		return new CMRespDto<String>(1, "성공", null);
 

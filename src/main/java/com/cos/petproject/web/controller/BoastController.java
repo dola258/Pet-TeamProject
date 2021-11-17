@@ -9,9 +9,6 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,15 +22,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cos.petproject.domain.animal.Animal;
-import com.cos.petproject.domain.animal.AnimalRepository;
 import com.cos.petproject.domain.boast.Boast;
 import com.cos.petproject.domain.boast.BoastRepository;
-import com.cos.petproject.domain.comment.Comment;
 import com.cos.petproject.domain.comment.CommentRepository;
 import com.cos.petproject.domain.user.User;
 import com.cos.petproject.handler.exception.MyAsyncNotFoundException;
 import com.cos.petproject.handler.exception.MyNotFoundException;
+import com.cos.petproject.service.CommentService;
+import com.cos.petproject.service.board.BoastService;
 import com.cos.petproject.util.Script;
 import com.cos.petproject.web.dto.CMRespDto;
 import com.cos.petproject.web.dto.CommentSaveReqDto;
@@ -46,10 +42,11 @@ import lombok.RequiredArgsConstructor;
 public class BoastController {
 
 	private final BoastRepository boastRepository;
-	private final CommentRepository commentRepository;
-	private final AnimalRepository animalRepository;
 	private final HttpSession session;
-
+	private final BoastService boastService;
+	private final CommentService commetService;
+	
+	
 	// 글작성 기능---------------------------------
 	@PostMapping("/{animalId}/boast")
 	public @ResponseBody String save(@PathVariable int animalId, @Valid BoastSaveReqDto dto,
@@ -77,9 +74,8 @@ public class BoastController {
 		dto.setContent(dto.getContent().replaceAll("<p>", ""));
 		dto.setContent(dto.getContent().replaceAll("</p>", ""));
 
-		// 글 작성
-		boastRepository.mSave(dto.getContent(), dto.getTitle(), animalId, principal);
-
+		boastService.게시글등록(dto, animalId, principal);
+			
 		if (animalId == 1) {
 			return Script.href("/" + animalId + "/boast?page=0");
 		} else if (animalId == 2) {
@@ -108,25 +104,8 @@ public class BoastController {
 		if (principal == null) {
 			throw new MyAsyncNotFoundException("인증이 되지 않았습니다.");
 		}
-		Boast boastEntity = boastRepository.findById(id)
-				.orElseThrow(() -> new MyAsyncNotFoundException("해당 게시글을 찾을 수 없습니다"));
-
-		if (principal.getId() != boastEntity.getUser().getId()) {
-			throw new MyAsyncNotFoundException("해당 게시물의 권한이 없습니다");
-		}
-		Animal animal = animalRepository.getById(animalId);
 		
-		dto.setContent(dto.getContent().replaceAll("<p>", ""));
-		dto.setContent(dto.getContent().replaceAll("</p>", ""));
-		
-		Boast boast = dto.toEntity(principal);
-		boast.setUser(principal);
-		
-		boast.setId(id);
-		boast.setAnimal(animal);
-		boast.setCounter(boastEntity.getCounter());
-		boast.setCreatedAt(LocalDateTime.now());
-		boastRepository.save(boast);
+		boastService.게시글수정(principal, id, animalId, dto);
 
 		return new CMRespDto<>(1, "업데이트 성공", null);
 
@@ -144,19 +123,7 @@ public class BoastController {
 			throw new MyAsyncNotFoundException("인증이 되지 않았습니다.");
 		}
 
-		// 권한이 있는 사람만 함수 접근 가능(principal.id == {id})
-		Boast boastEntity = boastRepository.findById(id)
-				.orElseThrow(() -> new MyAsyncNotFoundException("해당글을 찾을 수 없습니다."));
-		if (principal.getId() != boastEntity.getUser().getId() && !principal.getAuthority().equals("admin")) {
-			throw new MyAsyncNotFoundException("해당글을 삭제할 권한이 없습니다.");
-		}
-
-		try {
-			commentRepository.mdeleteById(principal.getId());
-			boastRepository.deleteById(id); // 오류 발생??? (id가 없으면)
-		} catch (Exception e) {
-			throw new MyAsyncNotFoundException(id + "를 찾을 수 없어서 삭제할 수 없어요.");
-		}
+		boastService.게시글삭제(principal, id);
 
 		return new CMRespDto<String>(1, "성공", null); // @ResponseBody 데이터 리턴!! String
 	}
@@ -185,18 +152,7 @@ public class BoastController {
 			return Script.back(errorMap.toString());
 		}
 		
-		// 게시글을 아이디를 조건으로 조회
-		Boast boastEntity = boastRepository.findById(id)
-				.orElseThrow(() -> new MyNotFoundException("해당게시글을 찾을 수 없습니다."));
-
-		// Comment 객체 만들기
-		Comment comment = new Comment();
-		comment.setContent(dto.getContent());
-		comment.setUser(principal);
-		comment.setBoast(boastEntity);
-
-		// 댓글 save 하기
-		commentRepository.save(comment);
+		commetService.자랑하기댓글등록(id, dto, principal);
 
 		if (animalId == 1) {
 			return Script.href("/" + animalId + "/boast/" + id);
@@ -211,12 +167,11 @@ public class BoastController {
 	@GetMapping("/{animalId}/boast/{id}/updateForm")
 	public String boastUpdateForm(@PathVariable int animalId, @PathVariable int id, Model model) {
 
-		Boast boastEntity = boastRepository.findById(id)
-				.orElseThrow(() -> new MyNotFoundException(id + " 페이지를 찾을 수 없습니다."));
-
+		Boast boastEntity = boastService.게시글수정페이지이동(id);
+		
 		LocalDateTime boardCreatedAt = boastEntity.getCreatedAt();
 		String parseCreatedAt = boardCreatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-
+		
 		model.addAttribute("boastEntity", boastEntity);
 		model.addAttribute("parseCreatedAt", parseCreatedAt);
 
@@ -242,16 +197,13 @@ public class BoastController {
 
 	@GetMapping("{animalId}/boast")
 	public String home(@PathVariable int animalId, @RequestParam int page, Model model) {
-		Pageable pageRequest = PageRequest.of(page, 10, Sort.by("id").descending());
-		Page<Boast> boastEntity = boastRepository.mFindKind(animalId, pageRequest);
+		
+		Page<Boast> boastEntity = boastService.게시글목록보기(page, animalId);
+		
 		int pageNumber = boastEntity.getPageable().getPageNumber();
 		int pageBlock = 10;
 		int startBlockPage = ((pageNumber) / pageBlock) * pageBlock + 1;
 		int endBlockPage = startBlockPage + pageBlock - 1;
-
-		
-		
-		
 		
 		model.addAttribute("startBlockPage", startBlockPage);
 		model.addAttribute("endBlockPage", endBlockPage);
@@ -272,10 +224,8 @@ public class BoastController {
 		// 게시판 조회수 증가
 		boastRepository.mCounter(id);
 
-		// id로 게시글 찾기
-		Boast boastEntity = boastRepository.findById(id)
-				.orElseThrow(() -> new MyNotFoundException(id + " 페이지를 찾을 수 없습니다."));
-
+		Boast boastEntity = boastService.게시글상세보기(id);
+		
 		// 날짜변환
 		LocalDateTime boardCreatedAt = boastEntity.getCreatedAt();
 		String parseCreatedAt = boardCreatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));

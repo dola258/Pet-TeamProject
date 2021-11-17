@@ -20,6 +20,7 @@ import com.cos.petproject.domain.authMail.AuthEmailRepository;
 import com.cos.petproject.domain.user.User;
 import com.cos.petproject.domain.user.UserRepository;
 import com.cos.petproject.handler.exception.MyAsyncNotFoundException;
+import com.cos.petproject.service.UserService;
 import com.cos.petproject.util.MyAlgorithm;
 import com.cos.petproject.util.SHA;
 import com.cos.petproject.util.Script;
@@ -40,6 +41,7 @@ public class UserController {
 	private final UserRepository userRepository;
 	private final HttpSession session;
 	private final AuthEmailRepository authEmailRepository;
+	private final UserService userService;
 	
 	private int userId;
 	
@@ -131,8 +133,8 @@ public class UserController {
       String encPassword = SHA.encrypt(dto.getPassword(), MyAlgorithm.SHA256);
       dto.setPassword(encPassword);
 
-      // db
-      User userEntity = userRepository.mLogin(dto.getUsername(), dto.getPassword());
+      User userEntity = userService.로그인(dto);
+      
       if(userEntity == null) {
     	  	return Script.back("아이디 혹은 비밀번호를 잘못 입력하였습니다");
       }else {
@@ -144,9 +146,8 @@ public class UserController {
 	// 회원가입 기능 --------------------------------------------
 	@PostMapping("/join")
 	public @ResponseBody String join(@Valid JoinReqDto dto, BindingResult bindingResult ) {
-		System.out.println(dto.getAuthKey());
 		String authKey = authEmailRepository.mFindAuthKey(dto.getAuthKey());
-		System.out.println(authKey);
+
 		if(authKey == null) {
 			return Script.back("인증번호를 잘못 입력하였습니다.");
 		}
@@ -177,10 +178,7 @@ public class UserController {
 			return Script.back("존재하는 전화번호입니다");
 		}
 		
-		// 입력받은 비밀번호 해쉬값으로 변경
-		String encPassword = SHA.encrypt(dto.getPassword(), MyAlgorithm.SHA256);
-		// 패스워드를 해쉬패스워드로 저장하려고
-		dto.setPassword(encPassword);
+		userService.회원가입(dto);
 		
 		if(dto.getUsername().equals("ssar")) {
 			dto.setAuthority("admin");
@@ -206,17 +204,17 @@ public class UserController {
 			return new CMRespDto<>(0, "인증번호를 잘못 입력하였습니다." , null);
 		}
 		
-		User userEntity = (User) session.getAttribute("principal");
+		User principal = (User) session.getAttribute("principal");
+		
+		userService.회원수정(principal, dto);
+		principal.setEmail(dto.getEmail());
+		principal.setNickname(dto.getNickname());
+		principal.setPhone(dto.getPhone());
+		principal.setPassword(SHA.encrypt(dto.getPassword(), MyAlgorithm.SHA256));
 	
-		userEntity.setEmail(dto.getEmail());
-		userEntity.setNickname(dto.getNickname());
-		userEntity.setPhone(dto.getPhone());
-		userEntity.setPassword(SHA.encrypt(dto.getPassword(), MyAlgorithm.SHA256));
+		session.setAttribute("principal", principal); // 세션 값 변경
 		
-		
-		session.setAttribute("principal", userEntity); // 세션 값 변경
-		
-		userRepository.save(userEntity);
+		userRepository.save(principal);
 
 		return new CMRespDto<>(1, "성공", null);
 

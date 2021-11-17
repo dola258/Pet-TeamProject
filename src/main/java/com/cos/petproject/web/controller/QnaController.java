@@ -9,9 +9,6 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,16 +22,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cos.petproject.domain.animal.Animal;
-import com.cos.petproject.domain.animal.AnimalRepository;
-import com.cos.petproject.domain.boast.Boast;
-import com.cos.petproject.domain.comment.Comment;
 import com.cos.petproject.domain.comment.CommentRepository;
 import com.cos.petproject.domain.qna.Qna;
 import com.cos.petproject.domain.qna.QnaRepository;
 import com.cos.petproject.domain.user.User;
 import com.cos.petproject.handler.exception.MyAsyncNotFoundException;
 import com.cos.petproject.handler.exception.MyNotFoundException;
+import com.cos.petproject.service.CommentService;
+import com.cos.petproject.service.board.QnaService;
 import com.cos.petproject.util.Script;
 import com.cos.petproject.web.dto.CMRespDto;
 import com.cos.petproject.web.dto.CommentSaveReqDto;
@@ -48,9 +43,10 @@ public class QnaController {
 
 	private final QnaRepository qnaRepository;
 	private final CommentRepository commentRepository;
-	private final AnimalRepository animalRepository;
 	private final HttpSession session;
-
+	private final QnaService qnaService;
+	private final CommentService commetService;
+	
 	// 글작성 기능---------------------------------
 	@PostMapping("/{animalId}/qna")
 	public @ResponseBody String save(@PathVariable int animalId, @Valid QnaSaveReqDto dto,
@@ -77,10 +73,9 @@ public class QnaController {
 		// <p> 태그 제거
 		dto.setContent(dto.getContent().replaceAll("<p>", ""));
 		dto.setContent(dto.getContent().replaceAll("</p>", ""));
-
-		// 글 작성
-		qnaRepository.mSave(dto.getContent(), dto.getTitle(), animalId, principal);
-
+		
+		qnaService.게시글등록(dto, animalId, principal);
+		
 		if (animalId == 1) {
 			return Script.href("/" + animalId + "/qna?page=0");
 		} else if (animalId == 2) {
@@ -109,22 +104,9 @@ public class QnaController {
 		if (principal == null) {
 			throw new MyAsyncNotFoundException("인증이 되지 않았습니다.");
 		}
-		Qna qnaEntity = qnaRepository.findById(id).orElseThrow(() -> new MyAsyncNotFoundException("해당 게시글을 찾을 수 없습니다"));
-
-		if (principal.getId() != qnaEntity.getUser().getId()) {
-			throw new MyAsyncNotFoundException("해당 게시물의 권한이 없습니다");
-		}
+	
+		qnaService.게시글수정(principal, id, animalId, dto);
 		
-		Animal animal = animalRepository.getById(animalId);
-		
-		Qna qna = dto.toEntity(principal);
-		qna.setUser(principal);
-		qna.setId(id);
-		qna.setAnimal(animal);
-		qna.setCounter(qnaEntity.getCounter());
-		qna.setCreatedAt(LocalDateTime.now());
-		qnaRepository.save(qna);
-
 		return new CMRespDto<>(1, "업데이트 성공", null);
 
 	}
@@ -137,22 +119,12 @@ public class QnaController {
 
 		// 인증이 된 사람만 함수 접근 가능!! (로그인 된 사람)
 		User principal = (User) session.getAttribute("principal");
+		
 		if (principal == null && !principal.getAuthority().equals("admin")) {
 			throw new MyAsyncNotFoundException("인증이 되지 않았습니다.");
 		}
 
-		// 권한이 있는 사람만 함수 접근 가능(principal.id == {id})
-		Qna qnaEntity = qnaRepository.findById(id).orElseThrow(() -> new MyAsyncNotFoundException("해당글을 찾을 수 없습니다."));
-		if (principal.getId() != qnaEntity.getUser().getId() && !principal.getAuthority().equals("admin")) {
-			throw new MyAsyncNotFoundException("해당글을 삭제할 권한이 없습니다.");
-		}
-
-		try {
-			commentRepository.mdeleteById(principal.getId());
-			qnaRepository.deleteById(id); // 오류 발생??? (id가 없으면)
-		} catch (Exception e) {
-			throw new MyAsyncNotFoundException(id + "를 찾을 수 없어서 삭제할 수 없어요.");
-		}
+		qnaService.게시글삭제(principal, id);
 
 		return new CMRespDto<String>(1, "성공", null); // @ResponseBody 데이터 리턴!! String
 	}
@@ -181,17 +153,7 @@ public class QnaController {
 			return Script.back(errorMap.toString());
 		}
 
-		// 게시글을 아이디를 조건으로 조회
-		Qna qnaEntity = qnaRepository.findById(id).orElseThrow(() -> new MyNotFoundException("해당게시글을 찾을 수 없습니다."));
-
-		// Comment 객체 만들기
-		Comment comment = new Comment();
-		comment.setContent(dto.getContent());
-		comment.setUser(principal);
-		comment.setQna(qnaEntity);
-
-		// 댓글 save 하기
-		commentRepository.save(comment);
+		commetService.QnA댓글등록(id, dto, principal);
 
 		if (animalId == 1) {
 			return Script.href("/" + animalId + "/qna/" + id);
@@ -206,8 +168,8 @@ public class QnaController {
 	@GetMapping("/{animalId}/qna/{id}/updateForm")
 	public String qnaUpdateForm(@PathVariable int animalId, @PathVariable int id, Model model) {
 
-		Qna qnaEntity = qnaRepository.findById(id).orElseThrow(() -> new MyNotFoundException(id + " 페이지를 찾을 수 없습니다."));
-
+		Qna qnaEntity = qnaService.게시글수정페이지이동(id);
+		
 		LocalDateTime boardCreatedAt = qnaEntity.getCreatedAt();
 		String parseCreatedAt = boardCreatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
@@ -237,8 +199,8 @@ public class QnaController {
 	@GetMapping("{animalId}/qna")
 	public String home(@PathVariable int animalId, @RequestParam int page, Model model) {
 	
-		Pageable pageRequest = PageRequest.of(page, 10, Sort.by("id").descending());
-		Page<Qna> qnaEntity = qnaRepository.mFindKind(animalId, pageRequest);
+		Page<Qna> qnaEntity = qnaService.게시글목록보기(page, animalId);
+		
 		int pageNumber = qnaEntity.getPageable().getPageNumber();
 		int pageBlock = 10;
 		int startBlockPage = ((pageNumber) / pageBlock) * pageBlock + 1;
@@ -262,10 +224,9 @@ public class QnaController {
 
 		// 게시판 조회수 증가
 		qnaRepository.mCounter(id);
-
-		// id로 게시글 찾기
-		Qna qnaEntity = qnaRepository.findById(id).orElseThrow(() -> new MyNotFoundException(id + " 페이지를 찾을 수 없습니다."));
-
+		
+		Qna qnaEntity = qnaService.게시글상세보기(id);
+		
 		// 날짜변환
 		LocalDateTime boardCreatedAt = qnaEntity.getCreatedAt();
 		String parseCreatedAt = boardCreatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));

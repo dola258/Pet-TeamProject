@@ -1,7 +1,5 @@
 package com.cos.petproject.web.dto.board;
 
-import java.time.LocalDateTime;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
