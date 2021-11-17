@@ -42,16 +42,11 @@ public class NoticeController {
 	
 	
 	// 글작성 기능---------------------------------
-	@PostMapping("/notice")
+	@PostMapping("/api/notice")
 	public @ResponseBody String save( @Valid NoticeSaveReqDto dto, BindingResult bindingResult) {
 		
 		User principal = (User) session.getAttribute("principal");
 
-		// 인증
-		if (principal == null) { // 로그인 안됨
-			return Script.href("/user/loginForm", "잘못된 접근입니다");
-		} 
-		
 		// 관리자인증
 		if(!principal.getAuthority().equals("admin")) {
 			return Script.href("/", "관리자만 접근 가능합니다.");
@@ -79,7 +74,7 @@ public class NoticeController {
 	}
 	
 	// 글수정 기능---------------------------------
-	@PutMapping("/notice/{id}")
+	@PutMapping("/api/notice/{id}")
 	public @ResponseBody CMRespDto<String> update(@PathVariable int id, @RequestBody @Valid NoticeSaveReqDto dto, BindingResult bindingResult) {
 		
 		//유효성 검사(공통로직)
@@ -93,9 +88,6 @@ public class NoticeController {
 
 		//인증
 		User principal = (User) session.getAttribute("principal");
-		if(principal == null) {
-			throw new MyAsyncNotFoundException("인증이 되지 않았습니다.");
-		}
 		
 		noticeService.게시글수정(principal, id, dto);
 		
@@ -105,14 +97,11 @@ public class NoticeController {
 	
 	
 	// 글삭제 기능---------------------------------
-	@DeleteMapping("/notice/{id}")
+	@DeleteMapping("/api/notice/{id}")
 	public @ResponseBody CMRespDto<String> delete(@PathVariable int id) {
 	
 		// 인증이 된 사람만 함수 접근 가능!! (로그인 된 사람)
 		User principal = (User) session.getAttribute("principal");
-		if (principal == null) {
-			throw new MyAsyncNotFoundException("인증이 되지 않았습니다.");
-		}
 
 		noticeService.게시글삭제(principal, id);
 

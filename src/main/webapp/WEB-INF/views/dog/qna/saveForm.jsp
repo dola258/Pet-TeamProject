@@ -9,7 +9,7 @@
 
 <div class="container">
 	<h1>댕댕이-QnA</h1>
-	<form action="/2/qna" method="post" >
+	<form action="/api/2/qna" method="post" >
 		<div class="mt-4 p-5 bg-light text-white rounded">
 			<input type="text" class="form-control" name="title" placeholder="제목을 입력하세요.">
 			<hr class="bg-dark">

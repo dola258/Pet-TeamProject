@@ -202,6 +202,7 @@ public class UserController {
 		
 		if(!authKey.equals(dto.getAuthKey())) { 
 			return new CMRespDto<>(0, "인증번호를 잘못 입력하였습니다." , null);
+			
 		}
 		
 		User principal = (User) session.getAttribute("principal");

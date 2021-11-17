@@ -26,15 +26,11 @@ public class CommentController {
 	private final CommentService commentService;
 	
 	// 댓글 삭제기능 ------------------------------------------
-	@DeleteMapping("/comment/{id}")
+	@DeleteMapping("/api/comment/{id}")
 	public @ResponseBody CMRespDto<String> deleteById(@PathVariable int id) {
 		
-		
 		User principal = (User) session.getAttribute("principal");
-		if(principal == null) {
-			throw new MyAsyncNotFoundException("인증되지 않은 사용자입니다");
-		}
-		
+
 		commentService.댓글삭제(id, principal);
 		
 		return new CMRespDto<String>(1, "성공", null);

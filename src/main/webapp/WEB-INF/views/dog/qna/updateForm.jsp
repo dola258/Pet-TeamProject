@@ -36,7 +36,7 @@ async function update(event, id){
 
 		console.log(boastUpdateDto);
 	
-		let response = await fetch("http://localhost:8080/2/qna/"+id, {
+		let response = await fetch("http://localhost:8080/api/2/qna/"+id, {
 			method: "put",
 			body: JSON.stringify(boastUpdateDto),
 			headers: {

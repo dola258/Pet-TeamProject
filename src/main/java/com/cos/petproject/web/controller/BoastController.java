@@ -48,16 +48,12 @@ public class BoastController {
 	
 	
 	// 글작성 기능---------------------------------
-	@PostMapping("/{animalId}/boast")
+	@PostMapping("/api/{animalId}/boast")
 	public @ResponseBody String save(@PathVariable int animalId, @Valid BoastSaveReqDto dto,
 			BindingResult bindingResult) {
 
 		User principal = (User) session.getAttribute("principal");
 
-		// 인증
-		if (principal == null) { // 로그인 안됨
-			return Script.href("/user/loginForm", "잘못된 접근입니다");
-		}
 
 		// 유효성 검사
 		if (bindingResult.hasErrors()) {
@@ -86,7 +82,7 @@ public class BoastController {
 	}
 
 	// 글수정 기능---------------------------------
-	@PutMapping("/{animalId}/boast/{id}")
+	@PutMapping("/api/{animalId}/boast/{id}")
 	public @ResponseBody CMRespDto<String> update(@PathVariable int animalId, @PathVariable int id,
 			@RequestBody @Valid BoastSaveReqDto dto, BindingResult bindingResult) {
 
@@ -101,9 +97,6 @@ public class BoastController {
 
 		// 인증
 		User principal = (User) session.getAttribute("principal");
-		if (principal == null) {
-			throw new MyAsyncNotFoundException("인증이 되지 않았습니다.");
-		}
 		
 		boastService.게시글수정(principal, id, animalId, dto);
 
@@ -112,14 +105,14 @@ public class BoastController {
 	}
 
 	// 글삭제 기능---------------------------------
-	@DeleteMapping("/boast/{id}")
+	@DeleteMapping("/api/boast/{id}")
 	public @ResponseBody CMRespDto<String> delete(@PathVariable int id) {
 
 		System.out.println(id);
 
 		// 인증이 된 사람만 함수 접근 가능!! (로그인 된 사람)
 		User principal = (User) session.getAttribute("principal");
-		if (principal == null && !principal.getAuthority().equals("admin")) {
+		if (!principal.getAuthority().equals("admin")) {
 			throw new MyAsyncNotFoundException("인증이 되지 않았습니다.");
 		}
 
@@ -129,7 +122,7 @@ public class BoastController {
 	}
 
 	// 댓글작성 기능---------------------------------
-	@PostMapping("/{animalId}/boast/{id}/comment")
+	@PostMapping("/api/{animalId}/boast/{id}/comment")
 	public @ResponseBody String commentSave(@PathVariable int animalId, @PathVariable int id,
 			@Valid CommentSaveReqDto dto, BindingResult bindingResult, Model model) {
 

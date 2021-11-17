@@ -56,7 +56,7 @@
 				<p></p>
 			</c:forEach>
 			<c:if test="${!empty sessionScope.principal.username}">
-			<form action="/1/boast/${boastEntity.id}/comment" method="post">
+			<form action="/api/1/boast/${boastEntity.id}/comment" method="post">
 				<div class="card-footer">
 					<div class="input-group mb-3">
 						<span class="input-group-text">${sessionScope.principal.username }</span>
@@ -76,7 +76,7 @@
 	async function deleteById(id) {
 	
 		// 1. 비동기 함수 호출
-		let response = await fetch("http://localhost:8080/boast/"+id, {
+		let response = await fetch("http://localhost:8080/api/boast/"+id, {
 			method: "delete"
 		});
 		
@@ -99,7 +99,7 @@
 	async function reply_delete(commentId) {
 	
 		// 1. 비동기 함수 호출
-		let response = await fetch("http://localhost:8080/comment/"+commentId, {
+		let response = await fetch("http://localhost:8080/api/comment/"+commentId, {
 			method: "delete"
 		});
 		

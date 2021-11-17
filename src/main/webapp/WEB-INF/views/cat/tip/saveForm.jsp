@@ -9,7 +9,7 @@
 
 <div class="container">
 	<h1>냐옹이-꿀팁</h1>
-	<form action="/1/tip" method="post" >
+	<form action="/api/1/tip" method="post" >
 		<div class="mt-4 p-5 bg-light text-white rounded">
 			<input type="text" class="form-control" name="title" placeholder="제목을 입력하세요.">
 			<hr class="bg-dark">

@@ -50,15 +50,10 @@ public class TipController {
 	private final CommentService commentService;
 	
 	// 글작성 기능---------------------------------
-	   @PostMapping("/{animalId}/tip")
+	   @PostMapping("/api/{animalId}/tip")
 	   public @ResponseBody String save(@PathVariable int animalId, @Valid TipSaveReqDto dto, BindingResult bindingResult) {
 	      	      
 	      User principal = (User) session.getAttribute("principal");
-	      
-	      // 인증
-	      if(principal == null) { // 로그인 안됨
-	         return Script.href("/user/loginForm", "잘못된 접근입니다");
-	      }
 	      
 	      // 유효성 검사
 	      if(bindingResult.hasErrors()) {
@@ -87,7 +82,7 @@ public class TipController {
 	   }
 	
 	// 글수정 기능---------------------------------
-	@PutMapping("/{animalId}/tip/{id}")
+	@PutMapping("/api/{animalId}/tip/{id}")
 	public @ResponseBody CMRespDto<String> update(@PathVariable int animalId, @PathVariable int id, @RequestBody @Valid TipSaveReqDto dto, BindingResult bindingResult) {
 		
 		//유효성 검사(공통로직)
@@ -101,9 +96,6 @@ public class TipController {
 
 		//인증
 		User principal = (User) session.getAttribute("principal");
-		if(principal == null) {
-			throw new MyAsyncNotFoundException("인증이 되지 않았습니다.");
-		}
 	
 		tipService.게시글수정(principal, id, animalId, dto);
 		
@@ -112,14 +104,14 @@ public class TipController {
 	}
 	
 	// 글삭제 기능---------------------------------
-	@DeleteMapping("/tip/{id}")
+	@DeleteMapping("/api/tip/{id}")
 	public @ResponseBody CMRespDto<String> delete(@PathVariable int id) {
 
 		System.out.println(id);
 		
 		// 인증이 된 사람만 함수 접근 가능!! (로그인 된 사람)
 		User principal = (User) session.getAttribute("principal");
-		if(principal == null && !principal.getAuthority().equals("admin")) {
+		if(!principal.getAuthority().equals("admin")) {
 			throw new MyAsyncNotFoundException("인증이 되지 않았습니다.");
 		}
 
@@ -131,16 +123,11 @@ public class TipController {
 
 	
 	// 댓글작성 기능---------------------------------
-	@PostMapping("/{animalId}/tip/{id}/comment")
+	@PostMapping("/api/{animalId}/tip/{id}/comment")
 	public @ResponseBody String commentSave(@PathVariable int animalId, @PathVariable int id, @Valid CommentSaveReqDto dto, BindingResult bindingResult, Model model) {
 		
 		// 세션 가져오기
 		User principal = (User) session.getAttribute("principal");
-		
-		// 세션이 있는지 검사
-		if (principal == null) {
-			throw new MyNotFoundException("인증이 되지 않았습니다.");
-		}
 
 		// 유효성 검사
 		if (bindingResult.hasErrors()) {
